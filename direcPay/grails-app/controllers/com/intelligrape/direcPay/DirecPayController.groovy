@@ -15,7 +15,7 @@ class DirecPayController {
      */
     def index(PaymentRequestCommand command) {
 
-        println("make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}, \n command: ${command.dump()}")
+        println("......................make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}, \n command: ${command.dump()}")
 
         if (!command.validate()) {
             println "Validation: ${command.validate()}, Parameter: ${command.dump()}"
@@ -42,13 +42,13 @@ class DirecPayController {
     def pullPaymentDetails() {
 //        String requestparams = "1001403000365347|${DirecPayUtility.getConfig("direcPay.merchantId")}|${DirecPayUtility.getConfig("direcPay.return.transaction.details.URL")}"
         String requestparams = "1001403000365347|${DirecPayUtility.getConfig("direcPay.merchantId")}|http://localhost:8080/DirecPayTest/returnPaymentDetails"
-        log.debug "pullPaymentDetails, requestparams: ${requestparams}"
+        log.debug "...................pullPaymentDetails................................., requestparams: ${requestparams}"
         render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestparams, loadingText: DirecPayUtility.getConfig("direcPay.loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getConfig("direcPay.pull.transaction.details.URL")])
     }
 
     //TODO: need to fix
     def returnPaymentDetails() {
-        println("returnPaymentDetails.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
+        println(".........................................returnPaymentDetails..................,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
         direcPayService.update(params.requestparams)
         render(view: 'returnPaymentDetails')
     }
