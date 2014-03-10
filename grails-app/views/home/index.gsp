@@ -11,14 +11,14 @@
 <form id="makePaymentForm" name="makePaymentForm" action="http://direcpay.qa3.intelligrape.net/direcPay" method="post">
     <p>All details are hard coded</p>
     %{--<input type="text" name="country" value="IND"/>--}%
-    <input type="submit" name="make payment" value="Submit"/>
+    <input type="submit" name="submit" value="make payment"/>
 </form>
 
 <h1>Payment Details For ReferenceId: 1001403000365347</h1>
 
 <form id="paymentDetailsForm" name="paymentDetailsForm" action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails"
       method="post">
-    <input type="submit" name="Payment Detail" value="Submit"/>
+    <input type="submit" name="submit" value="Payment Detail"/>
 </form>
 
 </body>
