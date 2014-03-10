@@ -114,7 +114,7 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-grails.plugins.direcPay.return.transaction.details.URL = "http://localhost:8080/paymentDetails"
+grails.plugins.direcPay.return.transaction.details.URL = "http://direcpay.qa3.intelligrape.net/paymentDetails"
 //grails.plugins.direcPay.return.transaction.details.URL = "http://direcpay.qa3.intelligrape.net/paymentDetails"
 grails.plugins.direcPay.loadingText = "...Loading..."
 grails.plugins.direcPay.operatingMode = "DOM"
