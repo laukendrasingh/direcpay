@@ -21,6 +21,7 @@ out/*
 #other
 plugin.xml
 dependencies.groovy
+LocalConfig.groovy
 /test-tmp/
 /src/docs/ref/Resources/
 
