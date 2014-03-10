@@ -16,7 +16,8 @@
 
 <h1>Payment Details For ReferenceId: 1001403000365347</h1>
 
-<form id="paymentDetailsForm" name="paymentDetailsForm" action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails"
+<form id="paymentDetailsForm" name="paymentDetailsForm"
+      action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails"
       method="post">
     <input type="submit" name="submit" value="Payment Detail"/>
 </form>
