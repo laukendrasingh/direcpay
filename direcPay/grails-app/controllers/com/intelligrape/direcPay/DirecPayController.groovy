@@ -15,14 +15,14 @@ class DirecPayController {
      */
     def index(PaymentRequestCommand command) {
 
-        println("make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}")
+        println("make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}, \n command: ${command.dump()}")
 
-        /*if (!command.validate()) {
+        if (!command.validate()) {
             log.debug "Validation: ${command.validate()}, Parameter: ${command.dump()}"
             String requestURL = request.getHeader("referer")
             redirect(url: requestURL)
             return
-        }*/
+        }
 
         String encryptRequestParameter = command.getEncryptedRequestParameter()
         String encryptBillingDetail = command.getEncryptedBillingDetail()

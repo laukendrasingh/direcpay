@@ -115,8 +115,7 @@ log4j = {
 }
 
 grails.plugins.direcPay.return.transaction.details.URL = "http://direcpay.qa3.intelligrape.net/paymentDetails"
-//grails.plugins.direcPay.return.transaction.details.URL = "http://direcpay.qa3.intelligrape.net/paymentDetails"
-grails.plugins.direcPay.loadingText = "...Loading..."
+grails.plugins.direcPay.loadingText = "Loading..."
 grails.plugins.direcPay.operatingMode = "DOM"
 grails.plugins.direcPay.collaborator = "TOML"
 grails.plugins.direcPay.encryption.secretKey = "qcAHa6tt8s0l5NN7UWPVAQ=="

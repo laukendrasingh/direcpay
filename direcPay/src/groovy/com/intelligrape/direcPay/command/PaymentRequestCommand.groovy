@@ -17,7 +17,7 @@ class PaymentRequestCommand {
     String successURL = "http://direcpay.qa3.intelligrape.net/appSuccess"
     String failureURL = "http://direcpay.qa3.intelligrape.net/appFailure"
 
-    //BillingDetail: All fields are mandatory (either mobile or phone is mandatory)
+    //BillingDetail: (either mobile or phone is mandatory)
     String customerName //= "Loki"
     String customerAddress //= "Mumbai"
     String customerCity //= "Mumbai"
