@@ -1,16 +1,16 @@
 #IDEA
-.idea/
-*.iml
-*.ipr
-*.iws
+#.idea/
+#*.iml
+#*.ipr
+#*.iws
 
 #Eclipse
 .settings/
-.classpath
-.project
+#.classpath
+#.project
 
 #compiled sources
-target/*
+#target/*
 target-eclipse/*
 out/*
 *.zip
