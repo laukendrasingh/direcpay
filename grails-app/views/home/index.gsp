@@ -6,19 +6,19 @@
 
 <body>
 
-<h1>Make Payment Form</h1>
+<h1>Make Payment...</h1>
 
 <form id="makePaymentForm" name="makePaymentForm" action="http://direcpay.qa3.intelligrape.net/direcPay" method="post">
-    <p>Please put all fields here</p>
-    <input type="text" name="country" value="IND"/>
-    <input type="submit" name="submit" value="Submit"/>
+    <p>All details are hard coded</p>
+    %{--<input type="text" name="country" value="IND"/>--}%
+    <input type="submit" name="make payment" value="Submit"/>
 </form>
 
-<h1>Payment Details Form</h1>Not working
+<h1>Payment Details For ReferenceId: 1001403000365347</h1>
 
 <form id="paymentDetailsForm" name="paymentDetailsForm" action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails"
       method="post">
-    <input type="submit" name="submit" value="Submit"/>
+    <input type="submit" name="Payment Detail" value="Submit"/>
 </form>
 
 </body>
