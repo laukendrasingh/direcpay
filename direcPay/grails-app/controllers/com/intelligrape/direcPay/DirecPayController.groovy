@@ -18,7 +18,7 @@ class DirecPayController {
         println("make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}, \n command: ${command.dump()}")
 
         if (!command.validate()) {
-            log.debug "Validation: ${command.validate()}, Parameter: ${command.dump()}"
+            println "Validation: ${command.validate()}, Parameter: ${command.dump()}"
             String requestURL = request.getHeader("referer")
             redirect(url: requestURL)
             return
