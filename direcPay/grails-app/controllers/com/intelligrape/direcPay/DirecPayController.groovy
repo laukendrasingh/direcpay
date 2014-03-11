@@ -14,6 +14,7 @@ class DirecPayController {
      * @return redirect on success or failure url
      */
     def index(PaymentRequestCommand command) {
+
         println("......................make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}, \n command: ${command.dump()}")
 
         if (!command.validate()) {
