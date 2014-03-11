@@ -12,12 +12,12 @@
 <h1>DirecPay Payment Transaction Details</h1>
 
 <form id="pullDirecPayPaymentDetailsForm" name="pullDirecPayPaymentDetailsForm"
-      action="${direcPayPullTransactionDetailsURL}" method="post" style="display: none">
-    direcPayPullTransactionDetailsURL: ${direcPayPullTransactionDetailsURL}
+      action="${direcPayPullTransactionDetailsURL}" method="post" %{--style="display: none"--}%>
+    <p>direcPayPullTransactionDetailsURL: ${direcPayPullTransactionDetailsURL}</p>
     <table>
         <tr height="100%">
             <td>
-                requestparams: ${requestparams}
+                <p>requestparams: ${requestparams}</p>
                 <input type="hidden" name="requestparams" value="${requestparams}"/>
                 <input type="submit" id="submit" name="submit" value="Submit"/>
             </td>
@@ -28,8 +28,8 @@
 
 <script language="JavaScript" type="text/javascript">
     /*window.onload = function () {
-        document.getElementById("submit").click();
-    }*/
+     document.getElementById("submit").click();
+     }*/
 </script>
 
 </body>

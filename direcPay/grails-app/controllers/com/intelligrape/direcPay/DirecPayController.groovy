@@ -40,7 +40,7 @@ class DirecPayController {
 
     //TODO: need to fix
     def pullPaymentDetails() {
-        String requestparams = "1001403000365347|${DirecPayUtility.getConfig("direcPay.merchantId")}|${DirecPayUtility.getConfig("grails.plugins.direcPay.return.transaction.details.URL")}"
+        String requestparams = "1001403000365347|${DirecPayUtility.getConfig("direcPay.merchantId")}|${DirecPayUtility.getConfig("direcPay.return.transaction.details.URL")}"
         log.debug "...................pullPaymentDetails................................., requestparams: ${requestparams}"
         render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestparams, loadingText: DirecPayUtility.getConfig("direcPay.loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getConfig("direcPay.pull.transaction.details.URL")])
     }
