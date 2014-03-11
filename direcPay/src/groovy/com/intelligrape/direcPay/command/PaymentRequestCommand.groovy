@@ -22,7 +22,7 @@ class PaymentRequestCommand {
     String customerAddress //= "Mumbai"
     String customerCity //= "Mumbai"
     String customerState //= "Maharashtra"
-    int customerPinCode //= 400001
+    int customerPinCode = 400001
     String customerCountry = "IN"
 
     //<<---DirecPay does not hold following three field
@@ -40,7 +40,7 @@ class PaymentRequestCommand {
     String deliveryAddress
     String deliveryCity
     String deliveryState
-    int deliveryPinCode  //zipCode
+    int deliveryPinCode =207125 //zipCode
     String deliveryCountry = "IN"
     String deliveryPhNo1 = "91"
     String deliveryPhNo2 = "022"

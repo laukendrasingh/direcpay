@@ -12,7 +12,13 @@
 <span>${loadingText}</span>
 
 <form id="direcPayForm" name="direcPayForm"
-      action="${direcPayURL}" method="post" style="display: none">
+      action="${direcPayURL}" method="post" %{--style="display: none"--}%>
+    direcPayURL:${direcPayURL}
+    requestparameter:${requestparameter}
+    billingDtls:${billingDtls}
+    billingDtls:${billingDtls}
+    merchantId:${merchantId}
+    storeDtls:${storeDtls}
 
     <table>
         <tr height="100%">
@@ -32,9 +38,9 @@
 
 
 <script language="JavaScript" type="text/javascript">
-    window.onload = function () {
+    /*window.onload = function () {
         document.getElementById("submit").click();
-    }
+    }*/
 </script>
 
 </body>
