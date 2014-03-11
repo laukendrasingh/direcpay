@@ -13,10 +13,11 @@
 
 <form id="pullDirecPayPaymentDetailsForm" name="pullDirecPayPaymentDetailsForm"
       action="${direcPayPullTransactionDetailsURL}" method="post" style="display: none">
-
+    direcPayPullTransactionDetailsURL: ${direcPayPullTransactionDetailsURL}
     <table>
         <tr height="100%">
             <td>
+                requestparams: ${requestparams}
                 <input type="hidden" name="requestparams" value="${requestparams}"/>
                 <input type="submit" id="submit" name="submit" value="Submit"/>
             </td>
@@ -26,9 +27,9 @@
 
 
 <script language="JavaScript" type="text/javascript">
-    window.onload = function () {
+    /*window.onload = function () {
         document.getElementById("submit").click();
-    }
+    }*/
 </script>
 
 </body>
