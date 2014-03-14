@@ -13,6 +13,10 @@ class DirecPayUtility {
         return ApplicationHolder.application
     }
 
+    public static def getDirecConfig(String configProperty) {
+        getConfig("direcPay.${configProperty}")
+    }
+
     public static def getConfig(String configProperty) {
         def cpMap = grailsApplication.config.clone()
         configProperty = "grails.plugins.${configProperty}"

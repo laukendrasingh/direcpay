@@ -1,10 +1,10 @@
 package com.intelligrape.direcPay
 
 import com.intelligrape.direcPay.command.DirecPayProgressStatus
-import com.intelligrape.direcPay.command.DirecPayTransactionStatus
 import com.intelligrape.direcPay.command.PaymentResponseCommand
+import com.intelligrape.direcPay.command.RefundRequestCommand
+import com.intelligrape.direcPay.command.RefundResponseCommand
 import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
 @Transactional
 class DirecPayService {
@@ -13,40 +13,67 @@ class DirecPayService {
      * Save transactions response
      * @param params as success response params
      */
-    PaymentResponseCommand save(GrailsParameterMap params) {
-        log.debug("save transaction response, params: ${params}")
-        PaymentResponseCommand command = null
+    void save(PaymentResponseCommand command) {
+        log.debug("save transaction response, command: ${command?.dump()}")
 
-        if (params && params.responseparams) {
-            command = PaymentResponseCommand.populate(params?.responseparams)
-            log.debug("save response for direcPayReferenceId: ${command?.direcPayReferenceId}, transactionStatus: ${command?.transactionStatus?.name()}, merchantOrderNo: ${command?.merchantOrderNo}")
-            if (command) {
-                DirecPay direcPay = new DirecPay(command?.properties)
-                direcPay.progressStatus = command?.transactionStatus?.equals(DirecPayTransactionStatus.SUCCESS) || command?.transactionStatus?.equals(DirecPayTransactionStatus.FAIL) ? DirecPayProgressStatus.PROCESSED : DirecPayProgressStatus.AWAITED
-                direcPay.save()
-            }
+        if (command) {
+            DirecPayCollection direcPay = new DirecPayCollection()
+            direcPay.updateProperties(command)
         }
-        return command
     }
 
     /**
      * Update transactions response
      * @param params as success response params
      */
-    PaymentResponseCommand update(GrailsParameterMap params) {
-        log.debug("update transaction response, params: ${params}")
-
-        PaymentResponseCommand command = null
-        if (params && params.responseparams) {
-            command = PaymentResponseCommand.populate(params?.responseparams)
-            log.debug("update response for direcPayReferenceId: ${command?.direcPayReferenceId}, transactionStatus: ${command?.transactionStatus?.name()}, merchantOrderNo: ${command?.merchantOrderNo}")
-
-            DirecPay direcPay = DirecPay.findByDirecPayReferenceIdAndMerchantOrderNo(command.direcPayReferenceId, command.merchantOrderNo)
-            direcPay?.properties = command?.properties
-            direcPay?.progressStatus = command?.transactionStatus?.equals(DirecPayTransactionStatus.SUCCESS) || command?.transactionStatus?.equals(DirecPayTransactionStatus.FAIL) ? DirecPayProgressStatus.PROCESSED : DirecPayProgressStatus.AWAITED
-            direcPay?.save()
+    void update(PaymentResponseCommand command) {
+        log.debug("update transaction response, command: ${command.dump()}")
+        if (command) {
+            DirecPayCollection direcPay = DirecPayCollection.findByDirecPayReferenceIdAndMerchantOrderNo(command.direcPayReferenceId, command.merchantOrderNo)
+            direcPay?.updateProperties(command)
         }
-        return command
+    }
+
+    List<DirecPayCollection> pullPendingTransaction() {
+        log.debug("Pulling pending transaction")
+        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
+        return list
+    }
+
+    DirecPayRefund initRefund(RefundRequestCommand command) {
+        log.debug("initRefund for direcPayReferenceId: ${command.direcPayReferenceId}")
+        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, progressStatus: DirecPayProgressStatus.INITIATED)
+        refund.save(flush: true)
+        return refund
+    }
+
+    void updateRefund(RefundResponseCommand command) {
+        log.debug("updateRefund, params: ${command.dump()}")
+        if (command) {
+            DirecPayRefund refund = DirecPayRefund.findByDirecPayReferenceId(command.direcPayReferenceId) //todo needs to confirm with support for this, should check with DirecPayRefundId
+            try {
+                refund.progressStatus = DirecPayProgressStatus.PROCESSED
+                refund.updateTransactionStatus(command)
+                refund.message = command.message
+                refund.save()
+            } catch (Exception e) {
+                throw new Exception("DirecPay not found, ErrorMessage: ${e.message}")
+            }
+        }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

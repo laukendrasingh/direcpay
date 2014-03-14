@@ -1,55 +1,73 @@
 package com.intelligrape.direcPay
 
 import com.intelligrape.direcPay.command.PaymentRequestCommand
+import com.intelligrape.direcPay.command.PaymentResponseCommand
+import com.intelligrape.direcPay.command.RefundRequestCommand
+import com.intelligrape.direcPay.command.RefundResponseCommand
 import com.intelligrape.direcPay.common.DirecPayUtility
 
 class DirecPayController {
-//    static allowedMethods = [index: "POST"]
+    static allowedMethods = [index: "POST"]
 
     DirecPayService direcPayService
 
     /**
-     * Make payment with DirecPay
+     * Make payment with DirecPayCollection
      * @param command as PaymentRequestCommand
      * @return redirect on success or failure url
      */
     def index(PaymentRequestCommand command) {
+        log.debug("make payment..........\n command: ${command.dump()}")
 
-        println("......................make payment.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}, \nrequest: ${request.dump()}, \n command: ${command.dump()}")
-
-        if (!command.validate()) {
-            println "Validation: ${command.validate()}, Parameter: ${command.dump()}"
+        /*if (!command.validate()) {
+            log.debug "Validation: ${command.validate()}"
             String requestURL = request.getHeader("referer")
             redirect(url: requestURL)
             return
-        }
+        }*/
 
         String encryptRequestParameter = command.getEncryptedRequestParameter()
         String encryptBillingDetail = command.getEncryptedBillingDetail()
         String encryptShippingDetail = command.getEncryptedShippingDetail()
         String encryptedStoreDetails = command.getEncryptedStoreCardDetail()
 
-        String direcPayURL = DirecPayUtility.getConfig("direcPay.URL")
-        String merchantId = DirecPayUtility.getConfig("direcPay.merchantId")
-        String loadingText = DirecPayUtility.getConfig("direcPay.loadingText")
+        String direcPayURL = DirecPayUtility.getDirecConfig("URL")
+        String merchantId = DirecPayUtility.getDirecConfig("merchantId")
+        String loadingText = DirecPayUtility.getDirecConfig("loadingText")
 
-        println("Payment with merchantId: ${merchantId} and direcPayURL: ${direcPayURL}")
+        log.debug("Payment with merchantId: ${merchantId} and direcPayURL: ${direcPayURL}")
 
         render(view: 'index', model: [direcPayURL: direcPayURL, requestparameter: encryptRequestParameter, billingDtls: encryptBillingDetail, shippingDtls: encryptShippingDetail, merchantId: merchantId, storeDtls: encryptedStoreDetails, isStoreCard: (command.customerId ? true : false), loadingText: loadingText])
     }
 
-    //TODO: need to fix
-    def pullPaymentDetails() {
-        String requestparams = "1001403000365347|${DirecPayUtility.getConfig("direcPay.merchantId")}|${DirecPayUtility.getConfig("direcPay.return.transaction.details.URL")}"
-        log.debug "...................pullPaymentDetails................................., requestparams: ${requestparams}"
-        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestparams, loadingText: DirecPayUtility.getConfig("direcPay.loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getConfig("direcPay.pull.transaction.details.URL")])
+    def pullPaymentDetails(DirecPayCollection direcPayCollection) {
+        String requestParameter = "${direcPayCollection.direcPayReferenceId}|${DirecPayUtility.getConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
+        log.debug "PullPaymentDetails.........., requestparams: ${requestParameter}"
+        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
     }
 
-    //TODO: need to fix
     def returnPaymentDetails() {
-        println(".........................................returnPaymentDetails..................,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
-        direcPayService.update(params.requestparams)
+        log.debug("ReturnPaymentDetails..........,\nparams: ${params.dump()}")
+        PaymentResponseCommand command = new PaymentResponseCommand(params?.responseparams)
+        direcPayService.update(command)
         render(view: 'returnPaymentDetails')
+    }
+
+    def refund(RefundRequestCommand command) {
+        DirecPayRefund refund = direcPayService.initRefund(command)
+        String direcPayRefundURL = DirecPayUtility.getConfig("direcPay.refund.URL")
+        command.refundRequestId = refund.id
+        String requestparams = command.getEncryptedRequestParameter()
+        log.debug("Refund..........,\ndirecPayRefundURL: ${direcPayRefundURL}, requestparams: ${requestparams}")
+        render(view: 'refund', model: [direcPayRefundURL: direcPayRefundURL, requestparams: requestparams, merchantId: command.merchantId])
+    }
+
+    def responseRefundURL() {
+        //todo use log statements
+        log.debug("RefundResponseURL..........,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
+        RefundResponseCommand command = new RefundResponseCommand(params.requestparams)
+        direcPayService.updateRefund(command)
+        render(view: 'empty')
     }
 
 }

@@ -10,7 +10,7 @@
 
 <form id="makePaymentForm" name="makePaymentForm" action="http://direcpay.qa3.intelligrape.net/direcPay" method="post">
     <p>All details are hard coded</p>
-    %{--<input type="text" name="country" value="IND"/>--}%
+    <input type="text" name="country" value="IND"/>
     <input type="submit" name="submit" value="make payment"/>
 </form>
 

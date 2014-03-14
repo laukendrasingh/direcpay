@@ -25,7 +25,7 @@ class HomeController {
 
     def failure() {
         log.debug("paymentFailure.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
-        PaymentResponseCommand responseCommand = PaymentResponseCommand.populate(params.responseparams)
+        PaymentResponseCommand responseCommand = new PaymentResponseCommand(params.responseparams)
         render(view: 'paymentFailure', model: [responseCommand: responseCommand])
     }
 }

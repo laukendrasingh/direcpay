@@ -13,7 +13,7 @@ class DirecPayGrailsPlugin {
     def author = "Laukendra Singh"
     def authorEmail = "Laukendras@gmail.com"
     def description = '''\
-Payment integration with DirecPay
+Payment integration with DirecPayCollection
 '''
 
     // URL to the plugin's documentation
@@ -52,14 +52,18 @@ Payment integration with DirecPay
         // TODO Implement post initialization spring config (optional)
         application.config.grails.plugins.direcPay.URL = "https://test.timesofmoney.com/direcpay/secure/dpMerchantPayment.jsp"
         application.config.grails.plugins.direcPay.pull.transaction.details.URL = "https://test.timesofmoney.com/direcpay/secure/dpPullMerchAtrnDtls.jsp"
+        application.config.grails.plugins.direcPay.refund.URL = "https://test.direcpay.com/direcpay/secure/dpTransactionRefund.jsp"
 
-        //------------------
-        /*application.config.grails.plugins.direcPay.return.transaction.details.URL = "http://localhost:8080/direcPay/paymentDetails"
+        //TODO:Need to commented.........
+        application.config.grails.plugins.direcPay.return.transaction.details.URL = "http://localhost:8080/direcPay/paymentDetails"
         application.config.grails.plugins.direcPay.loadingText = "Loading..."
         application.config.grails.plugins.direcPay.operatingMode = "DOM"
         application.config.grails.plugins.direcPay.collaborator = "TOML"
         application.config.grails.plugins.direcPay.encryption.secretKey = "qcAHa6tt8s0l5NN7UWPVAQ=="
-        application.config.grails.plugins.direcPay.merchantId = "200904281000001"*/
+        application.config.grails.plugins.direcPay.merchantId = 200904281000001
+        application.config.grails.plugins.direcPay.pull.transaction.job.interval = 6000  // execute job once in 60 seconds
+        application.config.grails.plugins.direcPay.response.refund.URL = "http://localhost:8080/direcPay/responseRefundURL"
+
     }
 
     def onChange = { event ->

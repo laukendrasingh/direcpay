@@ -45,5 +45,8 @@ grails.project.dependency.resolution = {
                 ":rest-client-builder:1.0.3", ":tomcat:7.0.42") {
             export = false
         }
+        compile ':quartz:1.0-RC11'
     }
+
+
 }

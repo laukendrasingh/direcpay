@@ -13,7 +13,7 @@ class PaymentRequestCommand {
     double amount = 10.00
     long merchantOrderNo = System.currentTimeMillis()   //no String
     String otherDetails //= "test others"
-    String collaborator = DirecPayUtility.getConfig("direcPay.collaborator")   //fixed value this would be DirecPay in live mode
+    String collaborator = DirecPayUtility.getConfig("direcPay.collaborator")   //fixed value this would be DirecPayCollection in live mode
     String successURL = "http://direcpay.qa3.intelligrape.net/appSuccess"
     String failureURL = "http://direcpay.qa3.intelligrape.net/appFailure"
 
@@ -25,7 +25,7 @@ class PaymentRequestCommand {
     int customerPinCode = 400001
     String customerCountry = "IN"
 
-    //<<---DirecPay does not hold following three field
+    //<<---DirecPayCollection does not hold following three field
     String customerPhoneNo1 //= "91"
     String customerPhoneNo2 //= "022"
     String customerPhoneNo3 //= "28000000"

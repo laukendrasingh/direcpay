@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(DirecPay)
-class DirecPaySpec extends Specification {
+@TestFor(DirecPayCollection)
+class DirecPayCollectionSpec extends Specification {
 
     def setup() {
     }

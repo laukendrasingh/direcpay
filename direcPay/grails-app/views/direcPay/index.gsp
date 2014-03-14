@@ -18,6 +18,7 @@
     billingDtls:${billingDtls}
     billingDtls:${billingDtls}
     merchantId:${merchantId}
+    isStoreCard:${isStoreCard}
     storeDtls:${storeDtls}
 
     <table>
@@ -38,9 +39,9 @@
 
 
 <script language="JavaScript" type="text/javascript">
-    /*window.onload = function () {
+    window.onload = function () {
         document.getElementById("submit").click();
-    }*/
+    }
 </script>
 
 </body>
