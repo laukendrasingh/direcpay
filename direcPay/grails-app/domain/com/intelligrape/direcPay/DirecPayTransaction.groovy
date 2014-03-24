@@ -15,7 +15,7 @@ abstract class DirecPayTransaction {
     Date dateCreated
     Date lastUpdated
 
-    String direcPayReferenceId
+    String direcPayReferenceId = 1001403000365347 //todo
     String merchantOrderNo
     DirecPayTransactionStatus transactionStatus
     DirecPayProgressStatus progressStatus = PS.INITIATED
