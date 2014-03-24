@@ -26,6 +26,8 @@ class DirecPayCollection extends DirecPayTransaction {
         otherDetails(nullable: true)
         delayInterval(nullable: true)
         nextExpectedUpdate(nullable: true)
+
+        paymentStatus(nullable: true)
     }
 
     static mapping = {
@@ -33,17 +35,13 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     void updateProperties(PaymentResponseCommand command) {
+        super.paymentStatus = DirecPaypPaymentStatus.COLLECTION
         super.direcPayReferenceId = command.direcPayReferenceId
         super.merchantOrderNo = command.merchantOrderNo
         super.transactionStatus = command.transactionStatus
         this.otherDetails = command.otherDetails
         updateProgressStatus(command.transactionStatus)
         this.delayInterval = transactionStatus?.pullInterval
-    }
-
-
-    void updateProgressStatus(DirecPayTransactionStatus status) {
-        this.progressStatus = status?.equals(TS.SUCCESS) || status?.equals(TS.FAIL) ? PS.PROCESSED : PS.AWAITED
     }
 
     @Override

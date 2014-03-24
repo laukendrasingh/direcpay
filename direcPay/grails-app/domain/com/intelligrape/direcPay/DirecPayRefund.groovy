@@ -13,9 +13,4 @@ class DirecPayRefund extends DirecPayTransaction {
     DirecPaypPaymentStatus returnPaymentStatus() {
         return DirecPaypPaymentStatus.REFUND
     }
-
-    void updateTransactionStatus(RefundResponseCommand command) {
-        RefundResponseStatus status = command.refundResponseStatus
-        this.transactionStatus = status.equals(RefundResponseStatus.SUCCESS) ? DirecPayTransactionStatus.SUCCESS : DirecPayTransactionStatus.FAIL
-    }
 }

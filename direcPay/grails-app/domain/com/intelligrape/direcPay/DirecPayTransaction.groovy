@@ -6,6 +6,8 @@ import com.intelligrape.direcPay.command.DirecPayTransactionStatus
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus as TS
 import com.intelligrape.direcPay.command.DirecPaypPaymentStatus
 import com.intelligrape.direcPay.command.PaymentResponseCommand
+import com.intelligrape.direcPay.command.RefundResponseCommand
+import com.intelligrape.direcPay.command.RefundResponseStatus
 
 abstract class DirecPayTransaction {
     Long id
@@ -20,12 +22,15 @@ abstract class DirecPayTransaction {
     DirecPaypPaymentStatus paymentStatus = returnPaymentStatus()
 
     static constraints = {
-
     }
 
-    void updateProgressStatus(PaymentResponseCommand command) {
-        DirecPayTransactionStatus status = command.transactionStatus
+    void updateProgressStatus(DirecPayTransactionStatus status) {
         this.progressStatus = status?.equals(TS.SUCCESS) || status?.equals(TS.FAIL) ? PS.PROCESSED : PS.AWAITED
+    }
+
+    void updateTransactionStatus(RefundResponseCommand command) {
+        RefundResponseStatus status = command.refundResponseStatus
+        this.transactionStatus = status.equals(RefundResponseStatus.SUCCESS) ? DirecPayTransactionStatus.SUCCESS : DirecPayTransactionStatus.FAIL
     }
 
     abstract DirecPaypPaymentStatus returnPaymentStatus();
