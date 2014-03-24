@@ -18,6 +18,7 @@
 
 <form id="paymentDetailsForm" name="paymentDetailsForm"
       action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails">
+    <input type="text" name="direcPayReferenceId" value="${1001403000365347}"/>
     <input type="submit" name="submit" value="Payment Detail"/>
 </form>
 
