@@ -1,8 +1,8 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
-    username = "root"
-    password = "root"
+    username = "dev"
+    password = "dev"
     dbCreate = "update"
     url = "jdbc:mysql://localhost/test?useUnicode=yes&characterEncoding=UTF-8"
 }
