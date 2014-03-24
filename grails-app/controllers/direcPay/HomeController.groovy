@@ -20,8 +20,9 @@ class HomeController {
     def success() {
         println("paymentSuccess.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
         PaymentResponseCommand command = new  PaymentResponseCommand(params.responseparams)
+        println("command: ${command.dump()}")
         direcPayService.save(command)
-        render(view: 'paymentSuccess', model: [responseCommand: responseCommand])
+        render(view: 'paymentSuccess', model: [responseCommand: command])
     }
 
     def failure() {

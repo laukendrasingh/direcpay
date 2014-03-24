@@ -1,12 +1,10 @@
 package com.intelligrape.direcPay
 
-import com.intelligrape.direcPay.command.DirecPayProgressStatus
 import com.intelligrape.direcPay.command.DirecPayProgressStatus as PS
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus as TS
 import com.intelligrape.direcPay.command.DirecPaypPaymentStatus
 import com.intelligrape.direcPay.command.PaymentResponseCommand
-import org.grails.datastore.mapping.query.api.Criteria
 
 class DirecPayCollection extends DirecPayTransaction {
 //    Long id
@@ -34,19 +32,20 @@ class DirecPayCollection extends DirecPayTransaction {
         nextExpectedUpdate formula: "DATE_SUB(now(), Interval delay_interval MINUTE)"
     }
 
-    void updateProgressStatus(DirecPayTransactionStatus status) {
-        this.progressStatus = status?.equals(TS.SUCCESS) || status?.equals(TS.FAIL) ? PS.PROCESSED : PS.AWAITED
-    }
-
     void updateProperties(PaymentResponseCommand command) {
         super.direcPayReferenceId = command.direcPayReferenceId
         super.merchantOrderNo = command.merchantOrderNo
         super.transactionStatus = command.transactionStatus
         this.otherDetails = command.otherDetails
         updateProgressStatus(command.transactionStatus)
-        this.delayInterval = transactionStatus.pullInterval
+        this.delayInterval = transactionStatus?.pullInterval
 
         this.save(flush: true)
+    }
+
+
+    void updateProgressStatus(DirecPayTransactionStatus status) {
+        this.progressStatus = status?.equals(TS.SUCCESS) || status?.equals(TS.FAIL) ? PS.PROCESSED : PS.AWAITED
     }
 
     @Override
@@ -55,12 +54,13 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     static List<DirecPayCollection> pullPendingTransactions() {
-//        log.debug("Pulling pending transactions")
-        /*Criteria criteria = createCriteria()
+        println("Pulling pending transactions")
+        /*TODO::Criteria criteria = createCriteria()
         List<DirecPayCollection> list = criteria.list {
             eq('progressStatus', DirecPayProgressStatus.AWAITED)
             leProprty("lastUpdated", "nextExpectedUpdate")
         }
         return list*/
+        return getAll()
     }
 }

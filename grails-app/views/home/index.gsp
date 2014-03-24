@@ -17,10 +17,17 @@
 <h1>Payment Details For ReferenceId: 1001403000365347</h1>
 
 <form id="paymentDetailsForm" name="paymentDetailsForm"
-      action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails"
-      method="post">
+      action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails">
     <input type="submit" name="submit" value="Payment Detail"/>
 </form>
+
+<h1>Refund For ReferenceId: 1001403000365347</h1>
+
+<form id="refundForm" name="refundForm" action="http://direcpay.qa3.intelligrape.net/direcPay/refund">
+    <input type="text" name="refundAmount" value="1"/>
+    <input type="submit" name="submit" value="Refund"/>
+</form>
+
 
 </body>
 </html>
