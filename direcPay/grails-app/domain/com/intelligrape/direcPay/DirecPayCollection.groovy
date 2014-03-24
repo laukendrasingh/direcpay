@@ -29,7 +29,7 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     static mapping = {
-        nextExpectedUpdate formula: "DATE_SUB(now(), Interval delay_interval MINUTE)"
+//        nextExpectedUpdate formula: "DATE_SUB(now(), Interval delay_interval MINUTE)"
     }
 
     void updateProperties(PaymentResponseCommand command) {
