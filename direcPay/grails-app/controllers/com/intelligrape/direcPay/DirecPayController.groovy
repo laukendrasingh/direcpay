@@ -51,6 +51,8 @@ class DirecPayController {
 
         String requestParameter = "${direcPayCollection.direcPayReferenceId}|${merchantId}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
         println "PullPaymentDetails.........., requestparams: ${requestParameter}"
+        println "merchantId: ${merchantId}, direcPayCollection.direcPayReferenceId: ${direcPayCollection.direcPayReferenceId}"
+
 //        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
         String url = DirecPayUtility.getDirecConfig("pull.transaction.details.URL")
         postCall(url, [requestparams: requestParameter]);
