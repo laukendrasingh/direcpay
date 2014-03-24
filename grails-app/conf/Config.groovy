@@ -97,9 +97,9 @@ environments {
 log4j = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    /*appenders {
+        console name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c - %m%n'), threshold: org.apache.log4j.Level.DEBUG
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -112,6 +112,17 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    error 'grails.app.services.com.intelligrape.direcPay'
+    error 'grails.app.controllers.direcPay'
+
+    root {
+        error 'stdout'
+        info 'stdout'
+        warn 'stdout'
+        debug 'stdout'
+        additivity = true
+    }*/
 }
 
 grails.plugins.direcPay.return.transaction.details.URL = "http://direcpay.qa3.intelligrape.net/direcPay/returnPaymentDetails"
@@ -121,5 +132,6 @@ grails.plugins.direcPay.collaborator = "TOML"
 grails.plugins.direcPay.encryption.secretKey = "qcAHa6tt8s0l5NN7UWPVAQ=="
 grails.plugins.direcPay.merchantId = "200904281000001"
 plugins.direcPay.pull.transaction.job.interval = 6000
+plugins.direcPay.response.refund.URL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
 
 

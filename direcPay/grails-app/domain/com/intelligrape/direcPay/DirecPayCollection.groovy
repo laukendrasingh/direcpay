@@ -39,12 +39,12 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     void updateProperties(PaymentResponseCommand command) {
-        direcPayReferenceId = command.direcPayReferenceId
-        merchantOrderNo = command.merchantOrderNo
-        transactionStatus = command.transactionStatus
-        otherDetails = command.otherDetails
+        super.direcPayReferenceId = command.direcPayReferenceId
+        super.merchantOrderNo = command.merchantOrderNo
+        super.transactionStatus = command.transactionStatus
+        this.otherDetails = command.otherDetails
         updateProgressStatus(command.transactionStatus)
-        delayInterval = transactionStatus.pullInterval
+        this.delayInterval = transactionStatus.pullInterval
 
         this.save(flush: true)
     }
@@ -55,12 +55,12 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     static List<DirecPayCollection> pullPendingTransactions() {
-        log.debug("Pulling pending transactions")
-        Criteria criteria = createCriteria()
+//        log.debug("Pulling pending transactions")
+        /*Criteria criteria = createCriteria()
         List<DirecPayCollection> list = criteria.list {
             eq('progressStatus', DirecPayProgressStatus.AWAITED)
             leProprty("lastUpdated", "nextExpectedUpdate")
         }
-        return list
+        return list*/
     }
 }

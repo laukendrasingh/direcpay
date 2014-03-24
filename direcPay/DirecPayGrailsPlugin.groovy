@@ -55,14 +55,14 @@ Payment integration with DirecPayCollection
         application.config.grails.plugins.direcPay.refund.URL = "https://test.direcpay.com/direcpay/secure/dpTransactionRefund.jsp"
 
         //TODO:Need to commented.........
-        application.config.grails.plugins.direcPay.return.transaction.details.URL = "http://localhost:8080/direcPay/paymentDetails"
+        /*application.config.grails.plugins.direcPay.return.transaction.details.URL = "http://localhost:8080/direcPay/paymentDetails"
         application.config.grails.plugins.direcPay.loadingText = "Loading..."
         application.config.grails.plugins.direcPay.operatingMode = "DOM"
         application.config.grails.plugins.direcPay.collaborator = "TOML"
         application.config.grails.plugins.direcPay.encryption.secretKey = "qcAHa6tt8s0l5NN7UWPVAQ=="
         application.config.grails.plugins.direcPay.merchantId = 200904281000001
         application.config.grails.plugins.direcPay.pull.transaction.job.interval = 6000  // execute job once in 60 seconds
-        application.config.grails.plugins.direcPay.response.refund.URL = "http://localhost:8080/direcPay/responseRefundURL"
+        application.config.grails.plugins.direcPay.response.refund.URL = "http://localhost:8080/direcPay/responseRefundURL"*/
 
     }
 

@@ -15,7 +15,9 @@ class PaymentRequestCommand {
     String otherDetails //= "test others"
     String collaborator = DirecPayUtility.getConfig("direcPay.collaborator")   //fixed value this would be DirecPayCollection in live mode
     String successURL = "http://direcpay.qa3.intelligrape.net/appSuccess"
+//    String successURL = "http://localhost:8080/direcpay/appSuccess"
     String failureURL = "http://direcpay.qa3.intelligrape.net/appFailure"
+//    String failureURL = "http://localhost:8080/direcpay/appFailure"
 
     //BillingDetail: (either mobile or phone is mandatory)
     String customerName //= "Loki"

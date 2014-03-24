@@ -14,7 +14,7 @@ class DirecPayService {
      * @param params as success response params
      */
     void save(PaymentResponseCommand command) {
-        log.debug("save transaction response, command: ${command?.dump()}")
+        println("save transaction response, command: ${command?.dump()}")
 
         if (command) {
             DirecPayCollection direcPay = new DirecPayCollection()
@@ -27,7 +27,7 @@ class DirecPayService {
      * @param params as success response params
      */
     void update(PaymentResponseCommand command) {
-        log.debug("update transaction response, command: ${command.dump()}")
+        println("update transaction response, command: ${command.dump()}")
         if (command) {
             DirecPayCollection direcPay = DirecPayCollection.findByDirecPayReferenceIdAndMerchantOrderNo(command.direcPayReferenceId, command.merchantOrderNo)
             direcPay?.updateProperties(command)
@@ -35,20 +35,20 @@ class DirecPayService {
     }
 
     List<DirecPayCollection> pullPendingTransaction() {
-        log.debug("Pulling pending transaction")
+        println("Pulling pending transaction")
         List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
         return list
     }
 
     DirecPayRefund initRefund(RefundRequestCommand command) {
-        log.debug("initRefund for direcPayReferenceId: ${command.direcPayReferenceId}")
+        println("initRefund for direcPayReferenceId: ${command.direcPayReferenceId}")
         DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, progressStatus: DirecPayProgressStatus.INITIATED)
         refund.save(flush: true)
         return refund
     }
 
     void updateRefund(RefundResponseCommand command) {
-        log.debug("updateRefund, params: ${command.dump()}")
+        println("updateRefund, params: ${command.dump()}")
         if (command) {
             DirecPayRefund refund = DirecPayRefund.findByDirecPayReferenceId(command.direcPayReferenceId) //todo needs to confirm with support for this, should check with DirecPayRefundId
             try {

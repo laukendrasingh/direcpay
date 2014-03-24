@@ -46,6 +46,7 @@ grails.project.dependency.resolution = {
             export = false
         }
         compile ':quartz:1.0-RC11'
+        compile ":rest:0.8"
     }
 
 

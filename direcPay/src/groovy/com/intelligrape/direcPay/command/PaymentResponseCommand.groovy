@@ -1,7 +1,9 @@
 package com.intelligrape.direcPay.command
 
 import com.intelligrape.direcPay.common.DirecPayUtility
+import grails.validation.Validateable
 
+@Validateable
 class PaymentResponseCommand {
     String direcPayReferenceId = "1001403000365347"
     DirecPayTransactionStatus transactionStatus

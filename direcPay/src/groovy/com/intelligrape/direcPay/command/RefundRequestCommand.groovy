@@ -1,7 +1,9 @@
 package com.intelligrape.direcPay.command
 
 import com.intelligrape.direcPay.common.DirecPayUtility
+import grails.validation.Validateable
 
+@Validateable
 class RefundRequestCommand {
     String refundRequestId = System.currentTimeMillis() //It should be unique for each refund request from Merchants.
     String direcPayReferenceId = "1001403000366135"
