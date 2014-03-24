@@ -47,6 +47,7 @@ class DirecPayController {
         println "PullPaymentDetails.........., requestparams: ${requestParameter}"
 //        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
         redirect(url: DirecPayUtility.getDirecConfig("pull.transaction.details.URL"), params: [requestparams: requestParameter])
+//        withRest(uri: DirecPayUtility.getDirecConfig("pull.transaction.details.URL"),params: [requestparams: requestParameter]);
     }
 
     def returnPaymentDetails() {

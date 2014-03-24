@@ -12,15 +12,7 @@
 <span>${loadingText}</span>
 
 <form id="direcPayForm" name="direcPayForm"
-      action="${direcPayURL}" method="post" %{--style="display: none"--}%>
-    direcPayURL:${direcPayURL}
-    requestparameter:${requestparameter}
-    billingDtls:${billingDtls}
-    billingDtls:${billingDtls}
-    merchantId:${merchantId}
-    isStoreCard:${isStoreCard}
-    storeDtls:${storeDtls}
-
+      action="${direcPayURL}" method="post" style="display: none">
     <table>
         <tr height="100%">
             <td>

@@ -19,6 +19,8 @@ class DirecPayService {
         if (command) {
             DirecPayCollection direcPay = new DirecPayCollection()
             direcPay.updateProperties(command)
+            DirecPayCollection result = direcPay.save(flush: true)
+            println "DirecPayCollection successfully saved, result: ${result}"
         }
     }
 
