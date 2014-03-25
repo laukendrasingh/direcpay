@@ -19,7 +19,7 @@ class DirecPayService {
         if (command) {
             DirecPayCollection direcPay = new DirecPayCollection()
             direcPay.updateProperties(command)
-            println "DirecPayCollection validation: ${direcPay.validate()}"
+            println "DirecPayCollection validation: ${direcPay.validate()}, direcPay: ${direcPay.dump()}"
             DirecPayCollection result = direcPay.save(flush: true)
             println "DirecPayCollection successfully saved, result: ${result}"
         }
