@@ -39,7 +39,8 @@ class DirecPayService {
 
     List<DirecPayCollection> pullPendingTransaction() {
         println("Pulling pending transaction")
-        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
+//        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
+        List<DirecPayCollection> list = DirecPayCollection.all
         return list
     }
 
