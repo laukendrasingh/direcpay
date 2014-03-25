@@ -1,24 +1,29 @@
 package com.intelligrape.direcPay.command
 
 enum DirecPayTransactionStatus {
-    //Todo: Change pull interval
-    SUCCESS("SUCCESS", null), FAIL("FAIL", null), TRANSACTION_BOOKED("Transaction Booked", 1000), HOLD("Hold", 1000),
-    FUNDS_IN_CLEARING("Funds in Clearing", 1000), TRANSACTION_REJECTED("Transaction Rejected", 1000), WITDHRAWN("Withdrawn", 1000)
+    //TODO: Change delay interval
+    SUCCESS("SUCCESS", null), FAIL("FAIL", null), TRANSACTION_BOOKED("Transaction Booked", 10), HOLD("Hold", 10),
+    FUNDS_IN_CLEARING("Funds in Clearing", 10), TRANSACTION_REJECTED("Transaction Rejected", 10), WITDHRAWN("Withdrawn", 10)
 
     private String statusName
-    private Integer pullInterval
+    private Integer delayInterval
 
-    private DirecPayTransactionStatus(String statusName, Integer pullInterval) {
+    /**
+     * For every transaction status we save delay interval in db for pulling the details
+     * @param statusName
+     * @param delayInterval as minute
+     */
+    private DirecPayTransactionStatus(String statusName, Integer delayInterval) {
         this.statusName = statusName
-        this.pullInterval = pullInterval
+        this.delayInterval = delayInterval
     }
 
     public String getStatusName() {
         return this.statusName
     }
 
-    public Integer getPullInterval() {
-        return this.pullInterval
+    public Integer getDelayInterval() {
+        return this.delayInterval
     }
 }
 

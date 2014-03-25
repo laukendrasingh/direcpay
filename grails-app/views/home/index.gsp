@@ -14,13 +14,13 @@
     <input type="submit" name="submit" value="make payment"/>
 </form>
 
-<h1>Payment Details For ReferenceId: 1001403000365347</h1>
+%{--<h1>Payment Details For ReferenceId: 1001403000365347</h1>
 
 <form id="paymentDetailsForm" name="paymentDetailsForm"
       action="http://direcpay.qa3.intelligrape.net/direcPay/pullPaymentDetails">
     <input type="text" name="direcPayReferenceId" value="${1001403000365347}"/>
     <input type="submit" name="submit" value="Payment Detail"/>
-</form>
+</form>--}%
 
 <h1>Refund For ReferenceId: 1001403000365347</h1>
 

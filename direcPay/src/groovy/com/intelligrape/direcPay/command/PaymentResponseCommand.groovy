@@ -5,7 +5,7 @@ import grails.validation.Validateable
 
 @Validateable
 class PaymentResponseCommand {
-    String direcPayReferenceId = "1001403000365347"
+    String direcPayReferenceId //= "1001403000365347"
     DirecPayTransactionStatus transactionStatus
     String country
     String currency

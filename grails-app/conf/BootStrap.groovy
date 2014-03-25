@@ -16,7 +16,7 @@ class BootStrap {
             DirecPayCollection collection1 = new DirecPayCollection(direcPayReferenceId: '1001403000366696',
                     merchantOrderNo: MERCHANT_ORDER_NO, progressStatus: DirecPayProgressStatus.PROCESSED,
                     transactionStatus: DirecPayTransactionStatus.TRANSACTION_BOOKED,
-                    delayInterval: DirecPayTransactionStatus.TRANSACTION_BOOKED.pullInterval)
+                    delayInterval: DirecPayTransactionStatus.TRANSACTION_BOOKED.delayInterval)
             collection1.save()
             println "saved direcpay collection1: ${collection1.dump()}"
         }
@@ -25,7 +25,7 @@ class BootStrap {
             DirecPayCollection collection2 = new DirecPayCollection(direcPayReferenceId: '1001403000366698',
                     merchantOrderNo: MERCHANT_ORDER_NO, progressStatus: DirecPayProgressStatus.PROCESSED,
                     transactionStatus: DirecPayTransactionStatus.FUNDS_IN_CLEARING,
-                    delayInterval: DirecPayTransactionStatus.FUNDS_IN_CLEARING.pullInterval)
+                    delayInterval: DirecPayTransactionStatus.FUNDS_IN_CLEARING.delayInterval)
             collection2.save()
             println "saved direcpay  collection1: ${collection2.dump()}"
         }

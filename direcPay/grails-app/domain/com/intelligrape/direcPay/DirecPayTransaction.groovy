@@ -1,13 +1,8 @@
 package com.intelligrape.direcPay
 
-import com.intelligrape.direcPay.command.DirecPayProgressStatus
+import com.intelligrape.direcPay.command.*
 import com.intelligrape.direcPay.command.DirecPayProgressStatus as PS
-import com.intelligrape.direcPay.command.DirecPayTransactionStatus
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus as TS
-import com.intelligrape.direcPay.command.DirecPaypPaymentStatus
-import com.intelligrape.direcPay.command.PaymentResponseCommand
-import com.intelligrape.direcPay.command.RefundResponseCommand
-import com.intelligrape.direcPay.command.RefundResponseStatus
 
 abstract class DirecPayTransaction {
     Long id

@@ -4,21 +4,9 @@ import com.intelligrape.direcPay.command.DirecPayProgressStatus
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus
 import com.intelligrape.direcPay.command.DirecPaypPaymentStatus
 import com.intelligrape.direcPay.command.PaymentResponseCommand
-import groovy.time.TimeCategory
 import org.grails.datastore.mapping.query.api.Criteria
 
 class DirecPayCollection extends DirecPayTransaction {
-//    Long id
-//    Long version
-//    Date dateCreated
-//    Date lastUpdated
-
-//    String direcPayReferenceId
-//    String merchantOrderNo
-//    DirecPayTransactionStatus transactionStatus
-//    DirecPayProgressStatus progressStatus = PS.PROCESSED
-//    DirecPaypPaymentStatus paymentStatus
-
     String otherDetails
     Integer delayInterval //in minute
     Date nextExpectedUpdate
@@ -27,8 +15,6 @@ class DirecPayCollection extends DirecPayTransaction {
         otherDetails(nullable: true)
         delayInterval(nullable: true)
         nextExpectedUpdate(nullable: true)
-
-//        paymentStatus(nullable: true)
     }
 
     static mapping = {
@@ -37,23 +23,17 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     void updateProperties(PaymentResponseCommand command) {
-        /*super.direcPayReferenceId = command.direcPayReferenceId
-        super.merchantOrderNo = command.merchantOrderNo
-        super.transactionStatus = command.transactionStatus
-        this.otherDetails = command.otherDetails*/
-
         this.properties = command.properties
-//        paymentStatus = DirecPaypPaymentStatus.COLLECTION
         updateProgressStatus(command.transactionStatus)
-        this.delayInterval = transactionStatus?.pullInterval
+        this.delayInterval = transactionStatus?.delayInterval
     }
 
     @Override
     DirecPaypPaymentStatus returnPaymentStatus() {
-        println "returnPaymentStatus: DirecPaypPaymentStatus.COLLECTION"
         return DirecPaypPaymentStatus.COLLECTION
     }
 
+    //TODO::need to fix criteria
     static List<DirecPayCollection> pullPendingTransactions() {
         println("Pulling pending transactions")
         Criteria criteria = createCriteria()
