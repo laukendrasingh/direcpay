@@ -27,7 +27,7 @@ class DirecPayCollection extends DirecPayTransaction {
         delayInterval(nullable: true)
         nextExpectedUpdate(nullable: true)
 
-        paymentStatus(nullable: true)
+//        paymentStatus(nullable: true)
     }
 
     static mapping = {
@@ -41,7 +41,7 @@ class DirecPayCollection extends DirecPayTransaction {
         this.otherDetails = command.otherDetails*/
 
         this.properties = command.properties
-        super.paymentStatus = DirecPaypPaymentStatus.COLLECTION
+        paymentStatus = DirecPaypPaymentStatus.COLLECTION
         updateProgressStatus(command.transactionStatus)
         this.delayInterval = transactionStatus?.pullInterval
     }
