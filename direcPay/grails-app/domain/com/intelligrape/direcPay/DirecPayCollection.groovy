@@ -48,6 +48,7 @@ class DirecPayCollection extends DirecPayTransaction {
 
     @Override
     DirecPaypPaymentStatus returnPaymentStatus() {
+        println "returnPaymentStatus: DirecPaypPaymentStatus.COLLECTION"
         return DirecPaypPaymentStatus.COLLECTION
     }
 
