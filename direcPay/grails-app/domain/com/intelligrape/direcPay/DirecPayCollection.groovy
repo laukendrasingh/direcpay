@@ -40,6 +40,10 @@ class DirecPayCollection extends DirecPayTransaction {
         super.merchantOrderNo = command.merchantOrderNo
         super.transactionStatus = command.transactionStatus
         this.otherDetails = command.otherDetails
+
+        //todo::
+        this.properties = command.properties
+
         updateProgressStatus(command.transactionStatus)
         this.delayInterval = transactionStatus?.pullInterval
     }
