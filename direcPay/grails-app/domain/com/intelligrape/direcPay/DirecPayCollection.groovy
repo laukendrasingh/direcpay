@@ -35,15 +35,13 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     void updateProperties(PaymentResponseCommand command) {
-        super.paymentStatus = DirecPaypPaymentStatus.COLLECTION
-        super.direcPayReferenceId = command.direcPayReferenceId
+        /*super.direcPayReferenceId = command.direcPayReferenceId
         super.merchantOrderNo = command.merchantOrderNo
         super.transactionStatus = command.transactionStatus
-        this.otherDetails = command.otherDetails
+        this.otherDetails = command.otherDetails*/
 
-        //todo::
         this.properties = command.properties
-
+        super.paymentStatus = DirecPaypPaymentStatus.COLLECTION
         updateProgressStatus(command.transactionStatus)
         this.delayInterval = transactionStatus?.pullInterval
     }
