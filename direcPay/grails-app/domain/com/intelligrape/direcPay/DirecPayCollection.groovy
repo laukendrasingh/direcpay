@@ -41,7 +41,7 @@ class DirecPayCollection extends DirecPayTransaction {
         this.otherDetails = command.otherDetails*/
 
         this.properties = command.properties
-        paymentStatus = DirecPaypPaymentStatus.COLLECTION
+//        paymentStatus = DirecPaypPaymentStatus.COLLECTION
         updateProgressStatus(command.transactionStatus)
         this.delayInterval = transactionStatus?.pullInterval
     }
