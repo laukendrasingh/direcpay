@@ -5,6 +5,7 @@ dataSource {
     password = "dev"
     dbCreate = "update"
     url = "jdbc:mysql://localhost/test?useUnicode=yes&characterEncoding=UTF-8"
+//    url = "jdbc:mysql://http://direcpay.qa3.intelligrape.net/test?useUnicode=yes&characterEncoding=UTF-8"
 }
 hibernate {
     cache.use_second_level_cache = true

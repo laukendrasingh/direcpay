@@ -16,6 +16,7 @@ class PullDirecPayTransactionJob {
             log.debug "Execute PullDirecPayTransactionJob..."
             List<DirecPayCollection> pendingTransactions = direcPayService.pullPendingTransaction()
             pendingTransactions?.each {
+                println "pullPaymentDetails for direcPayReferenceId: ${it.direcPayReferenceId}"
                 controller.pullPaymentDetails(it)
             }
         } catch (Throwable throwable) {

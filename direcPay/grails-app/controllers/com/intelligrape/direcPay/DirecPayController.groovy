@@ -9,6 +9,7 @@ import org.apache.http.HttpResponse
 import org.apache.http.StatusLine
 import org.apache.http.client.HttpClient
 import org.apache.http.client.methods.HttpPost
+import org.apache.http.impl.client.HttpClientBuilder
 
 //TODO:: Use log statements inplace of println
 class DirecPayController {
@@ -16,6 +17,10 @@ class DirecPayController {
 
     DirecPayService direcPayService
 
+    //TODO::for testing
+    def test(){
+         direcPayService.pullPendingTransaction()
+    }
     /**
      * Make payment with DirecPayCollection
      * @param command as PaymentRequestCommand
@@ -82,14 +87,14 @@ class DirecPayController {
         render(view: 'empty')
     }
 
-    private String postCall(String url, Map headerMap = [:]) {
+    private static String postCall(String url, Map headerMap = [:]) {
         println("postCall on URL: ${url}")
         HttpClient httpClient = null
         String response = "";
         try {
             httpClient = HttpClientBuilder.create().build()
             HttpPost httpPost = new HttpPost(url);
-            setHeaders(httpPost, headerMap)
+//            httpPost.setHeade(httpPost, headerMap)
             HttpResponse httpResponse = httpClient.execute(httpPost);
             StatusLine statusLine = httpResponse.statusLine
             println("httpClient: ${httpClient?.dump()}, httpPost: ${httpPost?.dump()}, httpResponse: ${httpResponse?.dump()}")

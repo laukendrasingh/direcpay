@@ -131,7 +131,7 @@ grails.plugins.direcPay.operatingMode = "DOM"
 grails.plugins.direcPay.collaborator = "TOML"
 grails.plugins.direcPay.encryption.secretKey = "qcAHa6tt8s0l5NN7UWPVAQ=="
 grails.plugins.direcPay.merchantId = "200904281000001"
-plugins.direcPay.pull.transaction.job.interval = 6000
+plugins.direcPay.pull.transaction.job.interval = 600
 plugins.direcPay.response.refund.URL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
 
 

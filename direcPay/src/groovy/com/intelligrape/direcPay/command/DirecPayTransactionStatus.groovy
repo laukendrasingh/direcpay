@@ -6,9 +6,9 @@ enum DirecPayTransactionStatus {
     FUNDS_IN_CLEARING("Funds in Clearing", 1000), TRANSACTION_REJECTED("Transaction Rejected", 1000), WITDHRAWN("Withdrawn", 1000)
 
     private String statusName
-    private Long pullInterval
+    private Integer pullInterval
 
-    private DirecPayTransactionStatus(String statusName, Long pullInterval) {
+    private DirecPayTransactionStatus(String statusName, Integer pullInterval) {
         this.statusName = statusName
         this.pullInterval = pullInterval
     }
@@ -17,7 +17,7 @@ enum DirecPayTransactionStatus {
         return this.statusName
     }
 
-    public Long getPullInterval() {
+    public Integer getPullInterval() {
         return this.pullInterval
     }
 }

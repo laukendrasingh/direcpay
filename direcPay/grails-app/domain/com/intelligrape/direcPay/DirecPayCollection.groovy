@@ -1,10 +1,11 @@
 package com.intelligrape.direcPay
 
-import com.intelligrape.direcPay.command.DirecPayProgressStatus as PS
+import com.intelligrape.direcPay.command.DirecPayProgressStatus
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus
-import com.intelligrape.direcPay.command.DirecPayTransactionStatus as TS
 import com.intelligrape.direcPay.command.DirecPaypPaymentStatus
 import com.intelligrape.direcPay.command.PaymentResponseCommand
+import groovy.time.TimeCategory
+import org.grails.datastore.mapping.query.api.Criteria
 
 class DirecPayCollection extends DirecPayTransaction {
 //    Long id
@@ -19,7 +20,7 @@ class DirecPayCollection extends DirecPayTransaction {
 //    DirecPaypPaymentStatus paymentStatus
 
     String otherDetails
-    Long delayInterval //in minute
+    Integer delayInterval //in minute
     Date nextExpectedUpdate
 
     static constraints = {
@@ -32,6 +33,7 @@ class DirecPayCollection extends DirecPayTransaction {
 
     static mapping = {
 //        nextExpectedUpdate formula: "DATE_SUB(now(), Interval delay_interval MINUTE)"
+        nextExpectedUpdate formula: "now()"
     }
 
     void updateProperties(PaymentResponseCommand command) {
@@ -54,12 +56,18 @@ class DirecPayCollection extends DirecPayTransaction {
 
     static List<DirecPayCollection> pullPendingTransactions() {
         println("Pulling pending transactions")
-        /*TODO::Criteria criteria = createCriteria()
+        Criteria criteria = createCriteria()
+        /*Date date
+        use(TimeCategory) {
+            date = new Date() - this.delayInterval.minutes
+        }*/
         List<DirecPayCollection> list = criteria.list {
             eq('progressStatus', DirecPayProgressStatus.AWAITED)
-            leProprty("lastUpdated", "nextExpectedUpdate")
+            notEqual('transactionStatus', DirecPayTransactionStatus.SUCCESS)
+            notEqual('transactionStatus', DirecPayTransactionStatus.HOLD)
+            le('lastUpdated', nextExpectedUpdate)
         }
-        return list*/
-        return getAll()
+        println "pullPendingTransactions: ${list.dump()}"
+        return list
     }
 }
