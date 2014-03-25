@@ -92,6 +92,8 @@ class DirecPayController {
             setHeaders(httpPost, headerMap)
             HttpResponse httpResponse = httpClient.execute(httpPost);
             StatusLine statusLine = httpResponse.statusLine
+            println("httpClient: ${httpClient?.dump()}, httpPost: ${httpPost?.dump()}, httpResponse: ${httpResponse?.dump()}")
+
             int statusCode = statusLine?.statusCode
             if (statusCode != 200) {
                 throw new RuntimeException("Non 200 response status received for ${url}. " +
@@ -100,7 +102,7 @@ class DirecPayController {
             println("response statusCode: ${statusCode}")
             response = httpResponse.getEntity().content.text
         } finally {
-            httpClient.close()
+            httpClient?.close()
         }
         return response
     }
