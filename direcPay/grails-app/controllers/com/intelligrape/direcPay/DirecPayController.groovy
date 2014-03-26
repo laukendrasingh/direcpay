@@ -48,6 +48,7 @@ class DirecPayController {
     }
 
     def refund(RefundRequestCommand command) {
+        println("refund for RefundRequestCommand: ${command.dump()}")
         DirecPayRefund refund = direcPayService.initRefund(command)
         String direcPayRefundURL = DirecPayUtility.getConfig("direcPay.refund.URL")
         command.refundRequestId = refund.id
