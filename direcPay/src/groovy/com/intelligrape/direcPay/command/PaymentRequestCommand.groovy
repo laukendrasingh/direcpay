@@ -10,44 +10,44 @@ class PaymentRequestCommand {
     String operatingMode = DirecPayUtility.getConfig("direcPay.operatingMode") //fixed value DOM
     String country = "IND"  //Default value is IND
     String currency = "INR" //Default value is INR
-    double amount //= 10.00
-    long merchantOrderNo //= System.currentTimeMillis()   //no String
-    String otherDetails //= "test others"
+    double amount = 10.00
+    long merchantOrderNo = System.currentTimeMillis()   //no String
+    String otherDetails = "test others"
     String collaborator = DirecPayUtility.getConfig("direcPay.collaborator")   //fixed value this would be DirecPayCollection in live mode
-    String successURL //= "http://direcpay.qa3.intelligrape.net/appSuccess"
+    String successURL = "http://direcpay.qa3.intelligrape.net/appSuccess"
 //    String successURL = "http://localhost:8080/direcpay/appSuccess"
-    String failureURL //= "http://direcpay.qa3.intelligrape.net/appFailure"
+    String failureURL = "http://direcpay.qa3.intelligrape.net/appFailure"
 //    String failureURL = "http://localhost:8080/direcpay/appFailure"
 
     //BillingDetail: (either mobile or phone is mandatory)
-    String customerName //= "Loki"
-    String customerAddress //= "Mumbai"
-    String customerCity //= "Mumbai"
-    String customerState //= "Maharashtra"
-    int customerPinCode //= 400001
+    String customerName = "Loki"
+    String customerAddress = "Mumbai"
+    String customerCity = "Mumbai"
+    String customerState = "Maharashtra"
+    int customerPinCode = 400001
     String customerCountry = "IN"
 
     //<<---DirecPayCollection does not hold following three field
-    String customerPhoneNo1 //= "91"
-    String customerPhoneNo2 //= "022"
-    String customerPhoneNo3 //= "28000000"
+    String customerPhoneNo1 = "91"
+    String customerPhoneNo2 = "022"
+    String customerPhoneNo3 = "28000000"
     //--->
 
-    String customerMobileNo //= "9820000000"
-    String customerEmailId //= "testuser@gmail.com"
-    String otherNotes //= "Laukendra test transaction for direcpay"
+    String customerMobileNo = "9820000000"
+    String customerEmailId = "testuser@gmail.com"
+    String otherNotes = "Laukendra test transaction for direcpay"
 
     //ShippingDetail: (either mobile or phone is mandatory)
     String deliveryName
     String deliveryAddress
     String deliveryCity
     String deliveryState
-    int deliveryPinCode //=207125 //zipCode
+    int deliveryPinCode =207125 //zipCode
     String deliveryCountry = "IN"
-    String deliveryPhNo1 //= "91"
-    String deliveryPhNo2 //= "022"
-    String deliveryPhNo3 //= "28000000"
-    String deliveryMobileNo //= "9920000000"
+    String deliveryPhNo1 = "91"
+    String deliveryPhNo2 = "022"
+    String deliveryPhNo3 = "28000000"
+    String deliveryMobileNo = "9920000000"
 
     //For store card functionality
     String customerId
