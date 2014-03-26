@@ -15,8 +15,11 @@ abstract class DirecPayTransaction {
     DirecPayTransactionStatus transactionStatus
     DirecPayProgressStatus progressStatus = PS.INITIATED
     DirecPaypPaymentStatus paymentStatus = returnPaymentStatus()
+    Double amount
 
     static constraints = {
+        amount nullable: false
+        transactionStatus nullable: true
     }
 
     void updateProgressStatus(DirecPayTransactionStatus status) {
@@ -31,3 +34,4 @@ abstract class DirecPayTransaction {
     abstract DirecPaypPaymentStatus returnPaymentStatus();
 
 }
+

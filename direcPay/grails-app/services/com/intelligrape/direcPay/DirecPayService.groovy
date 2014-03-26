@@ -39,14 +39,14 @@ class DirecPayService {
 
     List<DirecPayCollection> pullPendingTransaction() {
         println("Pulling pending transaction")
-//        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
+//todo::        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
         List<DirecPayCollection> list = DirecPayCollection.all
         return list
     }
 
     DirecPayRefund initRefund(RefundRequestCommand command) {
         println("initRefund for direcPayReferenceId: ${command.direcPayReferenceId}")
-        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, progressStatus: DirecPayProgressStatus.INITIATED)
+        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, amount: command.refundAmount, progressStatus: DirecPayProgressStatus.INITIATED)
         println("refund: ${refund.dump()}, refund.validate: ${refund.validate()}")
         refund.save(flush: true)
         return refund
