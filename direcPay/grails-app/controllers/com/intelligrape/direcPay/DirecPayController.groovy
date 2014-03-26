@@ -61,9 +61,10 @@ class DirecPayController {
     }
 
     def pullPaymentDetails(DirecPayCollection direcPayCollection) {
-        String requestParameter = "1001403000366772|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
+        String requestParameter = "${direcPayCollection.direcPayReferenceId}|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
         println "PullPaymentDetails.........., requestparams: ${requestParameter}"
-        redirect(url: DirecPayUtility.getDirecConfig("pull.transaction.details.URL"), params: [requestparams: requestParameter])
+//        redirect(url: DirecPayUtility.getDirecConfig("pull.transaction.details.URL"), params: [requestparams: requestParameter])
+        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
     }
 
     def returnPaymentDetails() {
