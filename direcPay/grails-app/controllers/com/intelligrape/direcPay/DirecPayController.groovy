@@ -40,15 +40,8 @@ class DirecPayController {
         render(view: 'index', model: [direcPayURL: direcPayURL, requestparameter: encryptRequestParameter, billingDtls: encryptBillingDetail, shippingDtls: encryptShippingDetail, merchantId: merchantId, storeDtls: encryptedStoreDetails, isStoreCard: (command.customerId ? true : false), loadingText: loadingText])
     }
 
-    def returnPaymentDetails() {
-        log.debug("Return payment details,\nparams: ${params.dump()}")
-        PaymentResponseCommand command = new PaymentResponseCommand(params?.responseparams)
-        direcPayService.update(command)
-        render(view: 'empty')
-    }
-
     def refund(RefundRequestCommand command) {
-        println"........................"
+        println "........................"
         println("refund for RefundRequestCommand: ${command.dump()}")
         DirecPayRefund refund = direcPayService.initRefund(command)
         String direcPayRefundURL = DirecPayUtility.getConfig("direcPay.refund.URL")
@@ -60,10 +53,25 @@ class DirecPayController {
     }
 
     def responseRefundURL() {
-        println"........................"
+        println "........................"
         println("Refund response,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
         RefundResponseCommand command = new RefundResponseCommand(params.requestparams)
         direcPayService.updateRefund(command)
+        render(view: 'empty')
+    }
+
+    def pullPaymentDetails(DirecPayCollection direcPayCollection) {
+        String requestParameter = "1001403000366772|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
+        println "PullPaymentDetails.........., requestparams: ${requestParameter}"
+        redirect(url: DirecPayUtility.getDirecConfig("pull.transaction.details.URL"), params: [requestparams: requestParameter])
+    }
+
+    def returnPaymentDetails() {
+        println "........................"
+        println("Return payment details,\nparams: ${params.dump()}")
+        PaymentResponseCommand command = new PaymentResponseCommand(params?.responseparams)
+        println("command: ${command.dump()}")
+//        direcPayService.update(command)
         render(view: 'empty')
     }
 
