@@ -47,6 +47,7 @@ class DirecPayService {
     DirecPayRefund initRefund(RefundRequestCommand command) {
         println("initRefund for direcPayReferenceId: ${command.direcPayReferenceId}")
         DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, progressStatus: DirecPayProgressStatus.INITIATED)
+        println("refund: ${refund.dump()}, refund.validate: ${refund.validate()}")
         refund.save(flush: true)
         return refund
     }
