@@ -52,6 +52,7 @@ class DirecPayController {
         println("refund for RefundRequestCommand: ${command.dump()}")
         DirecPayRefund refund = direcPayService.initRefund(command)
         String direcPayRefundURL = DirecPayUtility.getConfig("direcPay.refund.URL")
+        //todo:fixme
         command.refundRequestId = refund.id
         String requestParams = command.getEncryptedRequestParameter()
         println("Refund,\ndirecPayRefundURL: ${direcPayRefundURL}, requestparams: ${requestParams}, merchantId: ${command.merchantId}")

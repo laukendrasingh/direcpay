@@ -25,8 +25,9 @@
 <h1>Refund For ReferenceId: 1001403000365347</h1>
 
 <form id="refundForm" name="refundForm" action="http://direcpay.qa3.intelligrape.net/direcPay/refund">
-    direcPayReferenceId:<input type="text" name="direcPayReferenceId" value="1001403000365347"/>
-    refundAmount:<input type="text" name="refundAmount" value="1"/>
+    direcPayReferenceId:<input type="text" name="direcPayReferenceId" value=""/>
+    refundAmount:<input type="text" name="refundAmount" value=""/>
+    merchantOrderNo:<input type="text" name="merchantOrderNo" value=""/>
     <input type="submit" name="submit" value="Refund"/>
 </form>
 
