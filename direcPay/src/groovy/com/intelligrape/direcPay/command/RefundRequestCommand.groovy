@@ -10,7 +10,8 @@ class RefundRequestCommand {
     long merchantId = DirecPayUtility.getConfig("direcPay.merchantId") as long
     String merchantOrderNo = "1394783769152"
     double refundAmount
-    String responseURL = DirecPayUtility.getConfig("direcPay.response.refund.URL")
+//    String responseURL = DirecPayUtility.getConfig("direcPay.response.refund.URL")
+    String responseURL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
 
     //    RefundReqId|direcpayreferenceid|merchantId|orderid|refundamount|responseurl
     public String getEncryptedRequestParameter() {
