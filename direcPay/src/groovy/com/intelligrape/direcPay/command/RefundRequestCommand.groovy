@@ -16,6 +16,7 @@ class RefundRequestCommand {
     //    RefundReqId|direcpayreferenceid|merchantId|orderid|refundamount|responseurl
     public String getEncryptedRequestParameter() {
         String requestParameter = "${refundRequestId}|${direcPayReferenceId}|${merchantId}|${merchantOrderNo}|${refundAmount}|${responseURL}"
+        println"requestParameter: ${requestParameter}"
         return DirecPayUtility.encrypt(requestParameter);
     }
 }
