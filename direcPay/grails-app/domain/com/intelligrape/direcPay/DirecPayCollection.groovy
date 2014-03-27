@@ -6,6 +6,7 @@ import com.intelligrape.direcPay.command.DirecPaypPaymentStatus
 import com.intelligrape.direcPay.command.PaymentResponseCommand
 import org.grails.datastore.mapping.query.api.Criteria
 
+//TODO:Use log inplace of println
 class DirecPayCollection extends DirecPayTransaction {
     String otherDetails
     Integer delayInterval //in minute
@@ -18,13 +19,19 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     static mapping = {
-//        nextExpectedUpdate formula: "DATE_SUB(now(), Interval delay_interval MINUTE)"
+//TODO:Need to fix following formula
+//      nextExpectedUpdate formula: "DATE_SUB(now(), Interval delay_interval MINUTE)"
         nextExpectedUpdate formula: "now()"
     }
 
     void updateProperties(PaymentResponseCommand command) {
-        this.properties = command.properties
+        super.direcPayReferenceId = command.direcPayReferenceId
+        super.merchantOrderNo = command.merchantOrderNo
+        super.transactionStatus = command.transactionStatus
         updateProgressStatus(command.transactionStatus)
+        super.paymentStatus = returnPaymentStatus()
+        super.amount = command.postingAmount
+        this.otherDetails = command.otherDetails
         this.delayInterval = transactionStatus?.delayInterval
     }
 
@@ -35,7 +42,6 @@ class DirecPayCollection extends DirecPayTransaction {
 
     //TODO::need to fix criteria
     static List<DirecPayCollection> pullPendingTransactions() {
-        println("Pulling pending transactions")
         Criteria criteria = createCriteria()
         /*Date date
         use(TimeCategory) {
@@ -44,10 +50,11 @@ class DirecPayCollection extends DirecPayTransaction {
         List<DirecPayCollection> list = criteria.list {
             eq('progressStatus', DirecPayProgressStatus.AWAITED)
             notEqual('transactionStatus', DirecPayTransactionStatus.SUCCESS)
-            notEqual('transactionStatus', DirecPayTransactionStatus.HOLD)
+            notEqual('transactionStatus', DirecPayTransactionStatus.FAIL)
             le('lastUpdated', nextExpectedUpdate)
         }
-        println "pullPendingTransactions: ${list.dump()}"
-        return list
+        println "Pull pending transactions: ${list.dump()}"
+
+        return all
     }
 }

@@ -5,13 +5,13 @@ import grails.validation.Validateable
 
 @Validateable
 class RefundRequestCommand {
-    String refundRequestId = System.currentTimeMillis() //It should be unique for each refund request from Merchants.
-    String direcPayReferenceId //= "1001403000366135"
-    long merchantId = DirecPayUtility.getConfig("direcPay.merchantId") as long
-    String merchantOrderNo //= "1394783769152"
+    String refundRequestId //It should be unique for each refund request from Merchants.
+    String direcPayReferenceId
+    long merchantId = DirecPayUtility.getDirecConfig("merchantId") as long
+    String merchantOrderNo
     double refundAmount
-//    String responseURL = DirecPayUtility.getConfig("direcPay.response.refund.URL")
-    String responseURL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
+    String responseURL = DirecPayUtility.getDirecConfig("response.refund.URL")
+//    String responseURL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
 
     //    RefundReqId|direcpayreferenceid|merchantId|orderid|refundamount|responseurl
     public String getEncryptedRequestParameter() {

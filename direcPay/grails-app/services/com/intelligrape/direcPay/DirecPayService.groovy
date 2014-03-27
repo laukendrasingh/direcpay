@@ -1,11 +1,13 @@
 package com.intelligrape.direcPay
 
 import com.intelligrape.direcPay.command.DirecPayProgressStatus
+import com.intelligrape.direcPay.command.DirecPayTransactionStatus as TS
 import com.intelligrape.direcPay.command.PaymentResponseCommand
 import com.intelligrape.direcPay.command.RefundRequestCommand
 import com.intelligrape.direcPay.command.RefundResponseCommand
 import grails.transaction.Transactional
 
+//TODO:Use log inplace of println
 @Transactional
 class DirecPayService {
 
@@ -14,14 +16,14 @@ class DirecPayService {
      * @param params as success response params
      */
     void save(PaymentResponseCommand command) {
-        println("save transaction response, command: ${command?.dump()}")
+        println("Save make transaction response, params: ${command?.dump()}")
 
         if (command) {
-            DirecPayCollection direcPay = new DirecPayCollection()
-            direcPay.updateProperties(command)
-            println "DirecPayCollection validation: ${direcPay.validate()}, direcPay: ${direcPay.dump()}"
-            DirecPayCollection result = direcPay.save(flush: true)
-            println "DirecPayCollection successfully saved, result: ${result}"
+            DirecPayCollection collection = new DirecPayCollection()
+            collection.updateProperties(command)
+            println "Is valid collection: ${collection.validate()}, Collection: ${collection.dump()}"
+            DirecPayCollection savedCollection = collection.save(flush: true)
+            println "Collection successfully saved, result: ${savedCollection}"
         }
     }
 
@@ -29,39 +31,39 @@ class DirecPayService {
      * Update transactions response
      * @param params as success response params
      */
-    void update(PaymentResponseCommand command) {
-        println("update transaction response, command: ${command.dump()}")
+    void updateCollection(PaymentResponseCommand command) {
+        println("Update collection, params: ${command.dump()}")
         if (command) {
-            DirecPayCollection direcPay = DirecPayCollection.findByDirecPayReferenceIdAndMerchantOrderNo(command.direcPayReferenceId, command.merchantOrderNo)
-            direcPay?.updateProperties(command)
+            DirecPayCollection collection = DirecPayCollection.findByDirecPayReferenceIdAndMerchantOrderNoAndTransactionStatusNotInList(command.direcPayReferenceId, command.merchantOrderNo, [TS.SUCCESS, TS.FAIL])
+            collection?.updateProperties(command)
         }
     }
 
     List<DirecPayCollection> pullPendingTransaction() {
-        println("Pulling pending transaction")
-//todo::        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
-        List<DirecPayCollection> list = DirecPayCollection.all
+        println("Pull pending transaction")
+        List<DirecPayCollection> list = DirecPayCollection.pullPendingTransactions()
         return list
     }
 
     DirecPayRefund initRefund(RefundRequestCommand command) {
-        println("initRefund for direcPayReferenceId: ${command.direcPayReferenceId}")
-        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, amount: command.refundAmount, progressStatus: DirecPayProgressStatus.INITIATED)
-        println("refund: ${refund.dump()}, refund.validate: ${refund.validate()}, error: ${refund.errors?.dump()}")
+        println("Init refund, params: ${command.dump()}")
+        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, amount: command.refundAmount)
+        println("Refund: ${refund.dump()}, is valid refund: ${refund.validate()}, Error: ${refund.errors?.dump()}")
         refund.save(flush: true)
         return refund
     }
 
     void updateRefund(RefundResponseCommand command) {
-        println("updateRefund, params: ${command.dump()}")
+        println("update Refund, params: ${command.dump()}")
         if (command) {
-            DirecPayRefund refund = DirecPayRefund.findByDirecPayReferenceId(command.direcPayReferenceId) //todo needs to confirm with support for this, should check with DirecPayRefundId
+            DirecPayRefund refund = DirecPayRefund.findByDirecPayReferenceIdAndProgressStatus(command.direcPayReferenceId, DirecPayProgressStatus.INITIATED) //todo needs to confirm with support for this, should check with DirecPayRefundId
             try {
                 refund.progressStatus = DirecPayProgressStatus.PROCESSED
                 refund.updateTransactionStatus(command)
                 refund.message = command.message
-                refund.save()
+                refund.save(flush: true)
             } catch (Exception e) {
+                println("Refund not found")
                 throw new Exception("DirecPay not found, ErrorMessage: ${e.message}")
             }
         }
