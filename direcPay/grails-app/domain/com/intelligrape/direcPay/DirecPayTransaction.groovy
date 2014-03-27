@@ -15,7 +15,7 @@ abstract class DirecPayTransaction {
     DirecPayTransactionStatus transactionStatus
     DirecPayProgressStatus progressStatus = PS.INITIATED
     DirecPaypPaymentStatus paymentStatus = returnPaymentStatus()
-    Double amount
+    double amount
 
     static constraints = {
         transactionStatus nullable: true
