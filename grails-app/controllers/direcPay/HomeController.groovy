@@ -12,21 +12,21 @@ class HomeController {
     }
 
     def returnTransactionDetail() {
-        println "returnTransactionDetail..................\n response: ${response.dump()}, params: ${params.dump()}"
+        println "=================ReturnTransactionDetail=================\n response: ${response.dump()}, params: ${params.dump()}"
         render("success returnTransactionDetail")
         return
     }
 
     def success() {
-        println("paymentSuccess.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
-        PaymentResponseCommand command = new  PaymentResponseCommand(params.responseparams)
+        println("=================PaymentSuccess=================,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
+        PaymentResponseCommand command = new PaymentResponseCommand(params.responseparams)
         println("command: ${command.dump()}")
         direcPayService.save(command)
         render(view: 'paymentSuccess', model: [responseCommand: command])
     }
 
     def failure() {
-        println("paymentFailure.....,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
+        println("=================PaymentFailure=================,\nparams: ${params.dump()},\nresponse: ${response.dump()}")
         PaymentResponseCommand responseCommand = new PaymentResponseCommand(params.responseparams)
         direcPayService.save(responseCommand)
         render(view: 'paymentFailure', model: [responseCommand: responseCommand])

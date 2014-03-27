@@ -11,7 +11,7 @@ class PaymentResponseCommand {
     String currency
     String otherDetails
     String merchantOrderNo
-    double postingAmount
+    Double postingAmount
 
     /**
      * @param inputString as a | separated string (1000001xxxxxxxxx|SUCCESS/FAIL|IND|INR|details|orderno|100|)
@@ -26,7 +26,7 @@ class PaymentResponseCommand {
             currency = array[3]
             otherDetails = array[4]
             merchantOrderNo = array[5]
-            postingAmount = array[6] as double
+            postingAmount = array[6] as Double
         }
     }
 
