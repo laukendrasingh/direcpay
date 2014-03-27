@@ -55,6 +55,6 @@ class DirecPayCollection extends DirecPayTransaction {
         }
         println "Pull pending transactions: ${list.dump()}"
 
-        return all
+        return getAll()
     }
 }
