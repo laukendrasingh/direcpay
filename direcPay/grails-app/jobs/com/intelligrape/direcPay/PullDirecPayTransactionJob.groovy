@@ -1,11 +1,11 @@
 package com.intelligrape.direcPay
 
 import com.intelligrape.direcPay.common.DirecPayUtility
-import org.apache.http.HttpResponse
-import org.apache.http.StatusLine
-import org.apache.http.client.HttpClient
-import org.apache.http.client.methods.HttpPost
-import org.apache.http.impl.client.HttpClientBuilder
+//import org.apache.http.HttpResponse
+//import org.apache.http.StatusLine
+//import org.apache.http.client.HttpClient
+//import org.apache.http.client.methods.HttpPost
+//import org.apache.http.impl.client.HttpClientBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -32,7 +32,7 @@ class PullDirecPayTransactionJob {
     }
 
     private static void restCall(DirecPayCollection collection) {
-        log.debug("restCall for direcPayReferenceId: ${collection.direcPayReferenceId}")
+        /*log.debug("restCall for direcPayReferenceId: ${collection.direcPayReferenceId}")
 
         String url = DirecPayUtility.getDirecConfig("pull.transaction.details.URL")
         String merchantId = DirecPayUtility.getDirecConfig("merchantId")
@@ -57,7 +57,7 @@ class PullDirecPayTransactionJob {
             log.debug("response statusCode: ${statusCode}")
         } finally {
             httpClient?.close()
-        }
+        }*/
     }
 
 }

@@ -6,6 +6,10 @@ class DirecPayRefund extends DirecPayTransaction {
 
     String message
 
+    static constraints = {
+        message nullable: true
+    }
+
     @Override
     DirecPaypPaymentStatus returnPaymentStatus() {
         return DirecPaypPaymentStatus.REFUND

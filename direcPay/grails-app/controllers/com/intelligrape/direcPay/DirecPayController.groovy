@@ -5,12 +5,15 @@ import com.intelligrape.direcPay.command.PaymentResponseCommand
 import com.intelligrape.direcPay.command.RefundRequestCommand
 import com.intelligrape.direcPay.command.RefundResponseCommand
 import com.intelligrape.direcPay.common.DirecPayUtility
-import org.apache.http.HttpResponse
-import org.apache.http.StatusLine
-import org.apache.http.client.HttpClient
-import org.apache.http.client.methods.HttpPost
-import org.apache.http.impl.client.HttpClientBuilder
+import org.apache.commons.httpclient.HttpClient
+import org.apache.commons.httpclient.HttpStatus
+import org.apache.commons.httpclient.methods.PostMethod
 
+//import org.apache.http.HttpResponse
+//import org.apache.http.StatusLine
+//import org.apache.http.client.HttpClient
+//import org.apache.http.client.methods.HttpPost
+//import org.apache.http.impl.client.HttpClientBuilder
 class DirecPayController {
     static allowedMethods = [index: "POST"]
 
@@ -68,8 +71,9 @@ class DirecPayController {
     def pullPaymentDetails(DirecPayCollection direcPayCollection) {
         String requestParameter = "${direcPayCollection.direcPayReferenceId}|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
         println "PullPaymentDetails.........., requestparams: ${requestParameter}"
-//        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
-        restCall(direcPayCollection)
+        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
+//        restCall(direcPayCollection)
+        sendRequest(direcPayCollection)
         render(view: 'empty')
     }
 
@@ -83,7 +87,7 @@ class DirecPayController {
     }
 
     private static void restCall(DirecPayCollection collection) {
-        println("restCall for direcPayReferenceId: ${collection.direcPayReferenceId}")
+        /*println("restCall for direcPayReferenceId: ${collection.direcPayReferenceId}")
 
         String url = DirecPayUtility.getDirecConfig("pull.transaction.details.URL")
         String merchantId = DirecPayUtility.getDirecConfig("merchantId")
@@ -108,7 +112,34 @@ class DirecPayController {
             println("response statusCode: ${statusCode}")
         } finally {
             httpClient?.close()
+        }*/
+    }
+
+    private static void sendRequest(DirecPayCollection collection) {
+        PostMethod postMethod = null
+        String resp = null
+        try {
+            String url = DirecPayUtility.getDirecConfig("pull.transaction.details.URL")
+            String merchantId = DirecPayUtility.getDirecConfig("merchantId")
+            String requestParameter = "${collection.direcPayReferenceId}|${merchantId}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
+
+            println("sendRequest, DirecPayCollection: ${collection.dump()}, URL: ${url}, MerchantId: ${merchantId}, RequestParameter: ${requestParameter}")
+
+            HttpClient httpClient = new HttpClient();
+            postMethod = new PostMethod(url);
+            postMethod.addParameter("requestparams", requestParameter);
+            httpClient.executeMethod(postMethod);
+        } catch (Exception e) {
+            e.printStackTrace();
+            println "Error in send request, ErrorMessage: ${e.message}"
         }
+
+        if (postMethod?.statusCode == HttpStatus.SC_OK) {
+            resp = postMethod.getResponseBodyAsString();
+        } else {
+            postMethod.getStatusLine();
+        }
+        println "Response :${resp}, StatusCode: ${postMethod.getStatusCode()}"
     }
 
 }
