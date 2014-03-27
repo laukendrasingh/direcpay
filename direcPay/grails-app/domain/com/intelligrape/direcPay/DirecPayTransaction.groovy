@@ -18,7 +18,6 @@ abstract class DirecPayTransaction {
     Double amount
 
     static constraints = {
-        amount nullable: false
         transactionStatus nullable: true
     }
 
