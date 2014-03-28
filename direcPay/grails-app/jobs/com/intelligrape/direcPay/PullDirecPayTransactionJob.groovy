@@ -21,7 +21,8 @@ class PullDirecPayTransactionJob {
             List<DirecPayCollection> pendingTransactions = direcPayService.pullPendingTransaction()
             pendingTransactions?.each {
                 log.debug "Sending request for pullPaymentDetails, ReferenceId: ${it.direcPayReferenceId}"
-                sendRequest(it)
+                String requestParameter = "${it?.direcPayReferenceId}|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
+                sendRequest(requestParameter)
             }
         } catch (Throwable throwable) {
             log.debug "Exception in excecuting job, Message: ${throwable.message}"
@@ -29,16 +30,11 @@ class PullDirecPayTransactionJob {
 
     }
 
-    private static void sendRequest(DirecPayCollection collection) {
+    private static void sendRequest(String requestParameter) {
         PostMethod postMethod = null
         String resp = null
         try {
             String url = DirecPayUtility.getDirecConfig("pull.transaction.details.URL")
-            String merchantId = DirecPayUtility.getDirecConfig("merchantId")
-            String requestParameter = "${collection.direcPayReferenceId}|${merchantId}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
-
-            println("Sending request, Collection: ${collection.dump()}, URL: ${url}, MerchantId: ${merchantId}, RequestParameter: ${requestParameter}")
-
             HttpClient httpClient = new HttpClient();
             postMethod = new PostMethod(url);
             postMethod.addParameter("requestparams", requestParameter);

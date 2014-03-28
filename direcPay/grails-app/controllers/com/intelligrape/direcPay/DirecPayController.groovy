@@ -49,7 +49,7 @@ class DirecPayController {
 
     def responseRefundURL() {
         println("Get refund response, params: ${params.dump()}")
-        RefundResponseCommand command = new RefundResponseCommand(params.requestparams)
+        RefundResponseCommand command = new RefundResponseCommand(params.responseparams)
         direcPayService.updateRefund(command)
         render(view: 'empty')
     }
@@ -66,21 +66,16 @@ class DirecPayController {
         String requestParameter = "${collection.direcPayReferenceId}|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
         println "PullPaymentDetails, requestparams: ${requestParameter}"
 //        render(view: 'direcPayPullTransactionDetails', model: [requestparams: requestParameter, loadingText: DirecPayUtility.getDirecConfig("loadingText"), direcPayPullTransactionDetailsURL: DirecPayUtility.getDirecConfig("pull.transaction.details.URL")])
-        sendRequest(collection)
+        sendRequest(requestParameter)
         render(view: 'empty')
     }
 
     //todo:remove this action only for testing
-    private static void sendRequest(DirecPayCollection collection) {
+    private static void sendRequest(String requestParameter) {
         PostMethod postMethod = null
         String resp = null
         try {
             String url = DirecPayUtility.getDirecConfig("pull.transaction.details.URL")
-            String merchantId = DirecPayUtility.getDirecConfig("merchantId")
-            String requestParameter = "${collection.direcPayReferenceId}|${merchantId}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
-
-            println("Sending request, Collection: ${collection.dump()}, URL: ${url}, MerchantId: ${merchantId}, RequestParameter: ${requestParameter}")
-
             HttpClient httpClient = new HttpClient();
             postMethod = new PostMethod(url);
             postMethod.addParameter("requestparams", requestParameter);
