@@ -1,9 +1,6 @@
 package com.intelligrape.direcPay
 
-import com.intelligrape.direcPay.command.PaymentRequestCommand
-import com.intelligrape.direcPay.command.PaymentResponseCommand
-import com.intelligrape.direcPay.command.RefundRequestCommand
-import com.intelligrape.direcPay.command.RefundResponseCommand
+import com.intelligrape.direcPay.command.*
 import com.intelligrape.direcPay.common.DirecPayUtility
 import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.HttpStatus
@@ -52,7 +49,9 @@ class DirecPayController {
         println("Get refund response, params: ${params.dump()}")
         RefundResponseCommand command = new RefundResponseCommand(params.responseparams)
         direcPayService.updateRefund(command)
-        render(view: 'empty')
+        String redirectURL = command?.refundResponseStatus == RefundResponseStatus.SUCCESS ? DirecPayUtility.getConfig("success.refund.URL") : DirecPayUtility.getConfig("failre.refund.URL")
+        redirect(url: redirectURL, params: [params: command])
+//        render(view: 'empty')
     }
 
     def returnPaymentDetails() {

@@ -22,7 +22,7 @@ class PullDirecPayTransactionJob {
             pendingTransactions?.each {
                 log.debug "Sending request for pullPaymentDetails, ReferenceId: ${it.direcPayReferenceId}"
                 String requestParameter = "${it?.direcPayReferenceId}|${DirecPayUtility.getDirecConfig("merchantId")}|${DirecPayUtility.getDirecConfig("return.transaction.details.URL")}"
-                sendRequest(requestParameter)
+//todo:                sendRequest(requestParameter)
             }
         } catch (Throwable throwable) {
             log.debug "Exception in excecuting job, Message: ${throwable.message}"
