@@ -25,13 +25,14 @@ class DirecPayCollection extends DirecPayTransaction {
     }
 
     void updateProperties(PaymentResponseCommand command) {
-        super.direcPayReferenceId = command.direcPayReferenceId
-        super.merchantOrderNo = command.merchantOrderNo
-        super.transactionStatus = command.transactionStatus
+        this.properties = command.properties
+//        this.direcPayReferenceId = command.direcPayReferenceId
+//        this.merchantOrderNo = command.merchantOrderNo
+//        this.transactionStatus = command.transactionStatus
         updateProgressStatus(command.transactionStatus)
-        super.paymentStatus = returnPaymentStatus()
-        super.amount = command.postingAmount
-        this.otherDetails = command.otherDetails
+//        this.paymentStatus = returnPaymentStatus()
+        this.amount = command.postingAmount
+//        this.otherDetails = command.otherDetails
         this.delayInterval = transactionStatus?.delayInterval
     }
 
