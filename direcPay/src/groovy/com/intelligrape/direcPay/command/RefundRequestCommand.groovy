@@ -12,6 +12,8 @@ class RefundRequestCommand {
     double refundAmount
 //    String responseURL = DirecPayUtility.getDirecConfig("response.refund.URL")
     String responseURL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
+//    String successURL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
+//    String failureURL = "http://direcpay.qa3.intelligrape.net/direcPay/responseRefundURL"
 
     //    RefundReqId|direcpayreferenceid|merchantId|orderid|refundamount|responseurl
     public String getEncryptedRequestParameter() {
