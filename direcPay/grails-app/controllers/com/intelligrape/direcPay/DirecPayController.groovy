@@ -37,6 +37,7 @@ class DirecPayController {
     def refund(RefundRequestCommand command) {
         println("Start refund, params: ${command.dump()}")
         DirecPayRefund refund = direcPayService.initRefund(command)
+        println "DirecPayRefund: ${refund.dump()}"
 //        String direcPayRefundURL = DirecPayUtility.getConfig("direcPay.refund.URL")
         command.refundRequestId = refund.id
         sendRefundRequest(command)
@@ -73,7 +74,6 @@ class DirecPayController {
 
     private static void sendRefundRequest(RefundRequestCommand command) {
         PostMethod postMethod = null
-        String resp = null
         try {
             String url = DirecPayUtility.getConfig("direcPay.refund.URL")
             String requestParams = command.getEncryptedRequestParameter()
@@ -87,7 +87,7 @@ class DirecPayController {
             e.printStackTrace();
             println "Error in sending request, Message: ${e.message}"
         }
-        println "Get sending request response :${resp}, StatusCode: ${postMethod?.statusCode}"
+        println "Get sending request response, StatusCode: ${postMethod?.statusCode}"
     }
 
     //todo:remove this action only for testing

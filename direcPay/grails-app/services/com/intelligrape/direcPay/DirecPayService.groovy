@@ -49,8 +49,7 @@ class DirecPayService {
         println("Init refund, params: ${command.dump()}")
         DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, amount: command.refundAmount, progressStatus: DirecPayProgressStatus.INITIATED)
         println("Refund: ${refund.dump()}, is valid refund: ${refund.validate()}, Error: ${refund.errors?.dump()}")
-        refund.save(flush: true)
-        return refund
+        return refund.save(flush: true, failOnError: true)
     }
 
     DirecPayRefund updateRefund(RefundResponseCommand command) {

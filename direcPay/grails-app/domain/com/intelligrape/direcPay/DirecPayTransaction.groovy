@@ -5,8 +5,6 @@ import com.intelligrape.direcPay.command.DirecPayProgressStatus as PS
 import com.intelligrape.direcPay.command.DirecPayTransactionStatus as TS
 
 abstract class DirecPayTransaction {
-    Long id
-    Long version
     Date dateCreated
     Date lastUpdated
 
