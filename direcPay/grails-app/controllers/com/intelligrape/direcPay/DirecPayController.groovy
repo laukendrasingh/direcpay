@@ -40,6 +40,7 @@ class DirecPayController {
 //        String direcPayRefundURL = DirecPayUtility.getConfig("direcPay.refund.URL")
         command.refundRequestId = refund.id
         sendRefundRequest(command)
+        render(view: 'empty')
 //        String requestParams = command.getEncryptedRequestParameter()
 //        println("DirecPayRefundURL: ${direcPayRefundURL}, RequestParams: ${requestParams}, MerchantId: ${command.merchantId}")
 //        render(view: 'refund', model: [direcPayRefundURL: direcPayRefundURL, requestparams: requestParams, merchantId: command.merchantId])
@@ -86,13 +87,7 @@ class DirecPayController {
             e.printStackTrace();
             println "Error in sending request, Message: ${e.message}"
         }
-
-        if (postMethod?.statusCode == HttpStatus.SC_OK) {
-            resp = postMethod.getResponseBodyAsString();
-        } else {
-            postMethod.getStatusLine();
-        }
-        println "Get sending request response :${resp}, StatusCode: ${postMethod.getStatusCode()}"
+        println "Get sending request response :${resp}, StatusCode: ${postMethod?.statusCode}"
     }
 
     //todo:remove this action only for testing

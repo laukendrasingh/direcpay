@@ -7,7 +7,7 @@ import grails.validation.Validateable
 class RefundRequestCommand {
     String refundRequestId //=System.currentTimeMillis()//It should be unique for each refund request from Merchants.
     String direcPayReferenceId
-    long merchantId = DirecPayUtility.getDirecConfig("merchantId") as long
+    Long merchantId = DirecPayUtility.getDirecConfig("merchantId") as Long
     String merchantOrderNo
     double refundAmount
 
