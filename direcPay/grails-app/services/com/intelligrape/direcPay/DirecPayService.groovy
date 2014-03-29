@@ -47,16 +47,17 @@ class DirecPayService {
 
     DirecPayRefund initRefund(RefundRequestCommand command) {
         println("Init refund, params: ${command.dump()}")
-        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, amount: command.refundAmount)
+        DirecPayRefund refund = new DirecPayRefund(direcPayReferenceId: command.direcPayReferenceId, merchantOrderNo: command.merchantOrderNo, amount: command.refundAmount, progressStatus: DirecPayProgressStatus.INITIATED)
         println("Refund: ${refund.dump()}, is valid refund: ${refund.validate()}, Error: ${refund.errors?.dump()}")
         refund.save(flush: true)
         return refund
     }
 
-    void updateRefund(RefundResponseCommand command) {
+    DirecPayRefund updateRefund(RefundResponseCommand command) {
         println("update Refund, params: ${command.dump()}")
+        DirecPayRefund refund = null
         if (command) {
-            DirecPayRefund refund = DirecPayRefund.findByDirecPayReferenceIdAndProgressStatus(command.direcPayReferenceId, DirecPayProgressStatus.INITIATED) //todo needs to confirm with support for this, should check with DirecPayRefundId
+            refund = DirecPayRefund.findByDirecPayReferenceIdAndProgressStatus(command.direcPayReferenceId, DirecPayProgressStatus.INITIATED) //todo needs to confirm with support for this, should check with DirecPayRefundId
             try {
                 refund.progressStatus = DirecPayProgressStatus.PROCESSED
                 refund.updateTransactionStatus(command)
@@ -67,6 +68,7 @@ class DirecPayService {
                 throw new Exception("DirecPay not found, ErrorMessage: ${e.message}")
             }
         }
+        return refund
     }
 
 }

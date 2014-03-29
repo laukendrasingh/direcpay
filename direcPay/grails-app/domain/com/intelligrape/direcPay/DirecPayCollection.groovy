@@ -41,21 +41,16 @@ class DirecPayCollection extends DirecPayTransaction {
         return DirecPaypPaymentStatus.COLLECTION
     }
 
-    //TODO::need to fix criteria
     static List<DirecPayCollection> pullPendingTransactions() {
+        println("Pulling pending transactions")
         Criteria criteria = createCriteria()
-        /*Date date
-        use(TimeCategory) {
-            date = new Date() - this.delayInterval.minutes
-        }*/
         List<DirecPayCollection> list = criteria.list {
             eq('progressStatus', DirecPayProgressStatus.AWAITED)
             notEqual('transactionStatus', DirecPayTransactionStatus.SUCCESS)
             notEqual('transactionStatus', DirecPayTransactionStatus.FAIL)
-            le('lastUpdated', nextExpectedUpdate)
+            sqlRestriction("last_updated <= DATE_SUB(now(), INTERVAL delay_interval MINUTE)")
         }
-        println "Pull pending transactions: ${list.dump()}"
-
-        return getAll()
+        println "pullPendingTransactions: ${list.dump()}"
+        return list
     }
 }

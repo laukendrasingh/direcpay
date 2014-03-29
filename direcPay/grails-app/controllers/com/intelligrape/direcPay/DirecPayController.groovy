@@ -48,9 +48,9 @@ class DirecPayController {
     def responseRefundURL() {
         println("Get refund response, params: ${params.dump()}")
         RefundResponseCommand command = new RefundResponseCommand(params.responseparams)
-        direcPayService.updateRefund(command)
+        DirecPayRefund refund = direcPayService.updateRefund(command)
         String redirectURL = command?.refundResponseStatus == RefundResponseStatus.SUCCESS ? DirecPayUtility.getConfig("success.refund.URL") : DirecPayUtility.getConfig("failre.refund.URL")
-        redirect(url: redirectURL, params: [params: command])
+        redirect(url: redirectURL, params: [id: refund.id])
 //        render(view: 'empty')
     }
 
